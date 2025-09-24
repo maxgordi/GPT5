@@ -133,7 +133,10 @@ class AI_ChatBot_CSS_Generator {
         // Обновляем версию стилей для принудительного обновления
         $style_version = time();
         update_option('ai_chatbot_style_version', $style_version);
-        
-        return wp_upload_dir()['baseurl'] . "/ai-chatbot/ai-chatbot-{$timestamp}.css?v={$style_version}";
+
+        $css_url = $upload_dir['baseurl'] . "/ai-chatbot/ai-chatbot-{$timestamp}.css?v={$style_version}";
+        update_option('ai_chatbot_generated_css', $css_url);
+
+        return $css_url;
     }
 }

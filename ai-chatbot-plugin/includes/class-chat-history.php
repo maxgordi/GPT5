@@ -164,22 +164,43 @@ class AI_ChatBot_Chat_History {
             return false;
         }
         
-        $admin_email = get_option('admin_email');
-        $subject = sprintf('Р§Р°С‚ СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј (ID: %s)', $session_id);
-        
-        // Р¤РѕСЂРјР°С‚РёСЂСѓРµРј СЃРѕРѕР±С‰РµРЅРёСЏ РІ С‡РёС‚Р°РµРјС‹Р№ РІРёРґ
-        $body = "РСЃС‚РѕСЂРёСЏ РїРµСЂРµРїРёСЃРєРё:\n\n";
-        foreach ($messages as $message) {
-            $time = date('d.m.Y H:i:s', $message['timestamp']);
-            $sender = $message['sender'] === 'user' ? 'РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ' : 'Р‘РѕС‚';
-            $body .= "[$time] $sender:\n{$message['text']}\n\n";
+        $recipient = get_option('ai_chatbot_email_to');
+        if (!$recipient || !is_email($recipient)) {
+            $recipient = get_option('admin_email');
         }
         
-        // РћС‚РїСЂР°РІР»СЏРµРј email
-        $headers = array('Content-Type: text/plain; charset=UTF-8');
-        $result = wp_mail($admin_email, $subject, $body, $headers);
+        if (!$recipient || !is_email($recipient)) {
+            return false;
+        }
         
-        return $result;
+        $subject = sprintf('Чат с пользователем (ID: %s)', $session_id);
+        $site_name = wp_specialchars_decode(get_bloginfo('name'), ENT_QUOTES);
+        
+        $lines = array();
+        if (!empty($site_name)) {
+            $lines[] = 'Сайт: ' . $site_name;
+        }
+        $lines[] = 'История переписки:';
+        $lines[] = '';
+        
+        foreach ($messages as $message) {
+            $timestamp = isset($message['timestamp']) ? intval($message['timestamp']) : time();
+            $time = date_i18n('d.m.Y H:i:s', $timestamp);
+            $sender = isset($message['sender']) && $message['sender'] === 'user' ? 'Пользователь' : 'Бот';
+            $text = isset($message['text']) ? wp_strip_all_tags($message['text']) : '';
+            $text = preg_replace("/\r?\n/", "\r\n", $text);
+        
+            $lines[] = sprintf('[%s] %s:', $time, $sender);
+            if ($text !== '') {
+                $lines[] = $text;
+            }
+            $lines[] = '';
+        }
+        
+        $body = implode("\r\n", $lines);
+        $headers = array('Content-Type: text/plain; charset=UTF-8');
+        
+        return wp_mail($recipient, $subject, $body, $headers);
     }
     
     private function get_chat_file_path($session_id) {
