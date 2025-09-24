@@ -6,9 +6,77 @@ jQuery(document).ready(function($) {
     let historyAlreadySent = false;
     let pendingHistorySend = false;
     const INACTIVITY_TIMEOUT = ai_chatbot_options.inactivity_timeout; // Время неактивности из настроек админ-панели
-    
+    const SESSION_ID_KEY = 'ai_chatbot_session_id';
+    let cachedSessionId = null;
+
+    function safeStorage(name) {
+        try {
+            return window[name];
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function readSessionId(storage) {
+        if (!storage) {
+            return null;
+        }
+
+        try {
+            return storage.getItem(SESSION_ID_KEY);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function writeSessionId(storage, id) {
+        if (!storage) {
+            return false;
+        }
+
+        try {
+            storage.setItem(SESSION_ID_KEY, id);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function generateSessionId() {
+        return 'chatbot_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 11);
+    }
+
+    function getSessionId() {
+        if (cachedSessionId) {
+            return cachedSessionId;
+        }
+
+        const storages = [safeStorage('localStorage'), safeStorage('sessionStorage')];
+
+        for (let i = 0; i < storages.length; i++) {
+            const stored = readSessionId(storages[i]);
+            if (stored) {
+                cachedSessionId = stored;
+                break;
+            }
+        }
+
+        if (!cachedSessionId) {
+            cachedSessionId = generateSessionId();
+            for (let i = 0; i < storages.length; i++) {
+                if (writeSessionId(storages[i], cachedSessionId)) {
+                    break;
+                }
+            }
+        }
+
+        return cachedSessionId;
+    }
+
     // Инициализация чата
     function initChatBot() {
+        getSessionId();
+
         const $container = $('.ai-chatbot-container');
         const $toggle = $('.ai-chatbot-toggle');
         const $window = $('.ai-chatbot-window');
@@ -125,7 +193,12 @@ jQuery(document).ready(function($) {
         // Отправляем историю при закрытии чата если есть сообщения
         const messages = getAllMessages();
         if (messages.length > 0 && !historyAlreadySent) {
-            sendChatHistoryImmediately();
+            if (inactivityTimer) {
+                clearTimeout(inactivityTimer);
+            }
+            inactivityTimer = setTimeout(() => {
+                sendChatHistory();
+            }, INACTIVITY_TIMEOUT);
         }
     }
     
@@ -156,7 +229,8 @@ jQuery(document).ready(function($) {
             data: {
                 action: 'ai_chatbot_message',
                 message: message,
-                nonce: ai_chatbot_ajax.nonce
+                nonce: ai_chatbot_ajax.nonce,
+                session_id: getSessionId()
             },
             success: handleBotResponse,
             error: function() {
@@ -305,16 +379,36 @@ jQuery(document).ready(function($) {
                     console.warn('localStorage недоступен, пробуем sessionStorage');
                     sessionStorage.setItem('ai_chatbot_messages', JSON.stringify(messages));
                     sessionStorage.setItem('ai_chatbot_last_visit', Date.now());
+                    try {
+                        sessionStorage.setItem(SESSION_ID_KEY, getSessionId());
+                    } catch (storageError) {
+                        // Игнорируем невозможность сохранить идентификатор сессии
+                    }
                     return;
                 }
-                
+
                 // Если localStorage доступен, используем его
                 localStorage.setItem('ai_chatbot_messages', JSON.stringify(messages));
                 localStorage.setItem('ai_chatbot_last_visit', Date.now());
-                
+
                 // Дублируем в sessionStorage для надежности
                 sessionStorage.setItem('ai_chatbot_messages', JSON.stringify(messages));
                 sessionStorage.setItem('ai_chatbot_last_visit', Date.now());
+
+                const sessionId = getSessionId();
+                if (sessionId) {
+                    try {
+                        localStorage.setItem(SESSION_ID_KEY, sessionId);
+                    } catch (storageError) {
+                        // Игнорируем невозможность сохранить идентификатор сессии
+                    }
+
+                    try {
+                        sessionStorage.setItem(SESSION_ID_KEY, sessionId);
+                    } catch (storageError) {
+                        // Игнорируем невозможность сохранить идентификатор сессии
+                    }
+                }
             }
         } catch (e) {
             console.error('Ошибка при сохранении истории:', e);
@@ -382,16 +476,20 @@ jQuery(document).ready(function($) {
         try {
             localStorage.removeItem('ai_chatbot_messages');
             localStorage.removeItem('ai_chatbot_last_visit');
+            localStorage.removeItem(SESSION_ID_KEY);
         } catch (e) {
             console.warn('Ошибка при очистке localStorage:', e);
         }
-        
+
         try {
             sessionStorage.removeItem('ai_chatbot_messages');
             sessionStorage.removeItem('ai_chatbot_last_visit');
+            sessionStorage.removeItem(SESSION_ID_KEY);
         } catch (e) {
             console.warn('Ошибка при очистке sessionStorage:', e);
         }
+
+        cachedSessionId = null;
     }
     
     // Получить все сообщения чата
@@ -417,82 +515,36 @@ jQuery(document).ready(function($) {
             return;
         }
         
-        const chatHistory = getAllMessages();
-        if (chatHistory.length === 0) {
+        const messages = getAllMessages();
+        if (messages.length === 0) {
             return;
         }
         
         pendingHistorySend = true;
-        
-        // Отправляем историю на email и в Telegram
+
         $.ajax({
             url: ai_chatbot_ajax.ajax_url,
             type: 'POST',
             data: {
-                action: 'ai_chatbot_send_email',
-                history: JSON.stringify(chatHistory),
-                nonce: ai_chatbot_ajax.nonce
+                action: 'ai_chatbot_session_end',
+                nonce: ai_chatbot_ajax.nonce,
+                session_id: getSessionId()
             },
             success: function(response) {
                 if (response.success) {
                     historyAlreadySent = true;
-                    saveState(); // Сохраняем флаг
-                    console.log('История чата успешно отправлена');
+                    clearStorage();
+                    console.log('Сессия чата завершена по таймеру неактивности');
                 } else {
-                    console.error('AI ChatBot: Failed to send chat history -', response.data);
+                    console.error('AI ChatBot: не удалось завершить сессию -', response.data);
                 }
                 pendingHistorySend = false;
             },
             error: function(xhr, status, error) {
-                console.error('AI ChatBot: Error sending chat history -', error);
+                console.error('AI ChatBot: ошибка завершения сессии -', error);
                 pendingHistorySend = false;
             }
         });
-    }
-    
-    // Функция для немедленной отправки истории (при закрытии чата/страницы)
-    function sendChatHistoryImmediately() {
-        if (historyAlreadySent || pendingHistorySend) {
-            return;
-        }
-        
-        const chatHistory = getAllMessages();
-        if (chatHistory.length === 0) {
-            return;
-        }
-        
-        pendingHistorySend = true;
-        historyAlreadySent = true;
-        saveState(); // Сохраняем флаг немедленно
-        
-        // Используем navigator.sendBeacon для надежной отправки при закрытии
-        if (navigator.sendBeacon) {
-            const formData = new FormData();
-            formData.append('action', 'ai_chatbot_send_email');
-            formData.append('history', JSON.stringify(chatHistory));
-            formData.append('nonce', ai_chatbot_ajax.nonce);
-            
-            navigator.sendBeacon(ai_chatbot_ajax.ajax_url, formData);
-            console.log('История отправлена через sendBeacon');
-        } else {
-            // Fallback для старых браузеров
-            $.ajax({
-                url: ai_chatbot_ajax.ajax_url,
-                type: 'POST',
-                async: false, // Синхронный запрос при закрытии
-                data: {
-                    action: 'ai_chatbot_send_email',
-                    history: JSON.stringify(chatHistory),
-                    nonce: ai_chatbot_ajax.nonce
-                },
-                success: function(response) {
-                    console.log('История чата отправлена при закрытии');
-                },
-                error: function(xhr, status, error) {
-                    console.error('Ошибка отправки истории при закрытии:', error);
-                }
-            });
-        }
     }
     
     // Обработка ошибок
@@ -662,30 +714,16 @@ jQuery(document).ready(function($) {
     setInterval(saveState, 30000);
     
     // Сохранение состояния перед закрытием страницы
-    $(window).on('beforeunload', function(e) {
-        // Отправляем историю немедленно при закрытии страницы
-        const messages = getAllMessages();
-        if (messages.length > 0 && !historyAlreadySent) {
-            sendChatHistoryImmediately();
-        }
+    $(window).on('beforeunload', function() {
         saveState();
     });
-    
-    // Дополнительные обработчики для отправки истории
+
     $(window).on('unload pagehide', function() {
-        const messages = getAllMessages();
-        if (messages.length > 0 && !historyAlreadySent) {
-            sendChatHistoryImmediately();
-        }
+        saveState();
     });
-    
-    // Обработчик для мобильных устройств
+
     document.addEventListener('visibilitychange', function() {
         if (document.visibilityState === 'hidden') {
-            const messages = getAllMessages();
-            if (messages.length > 0 && !historyAlreadySent) {
-                sendChatHistoryImmediately();
-            }
             saveState();
         }
     });

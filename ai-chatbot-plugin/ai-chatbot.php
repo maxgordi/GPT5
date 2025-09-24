@@ -78,6 +78,11 @@ class AIChatBot {
         if (get_option('ai_chatbot_enabled') == '1') {
             wp_enqueue_script('ai-chatbot-js', AI_CHATBOT_PLUGIN_URL . 'assets/js/chatbot.js', array('jquery'), '1.0.0', true);
             wp_enqueue_style('ai-chatbot-css', AI_CHATBOT_PLUGIN_URL . 'assets/css/chatbot.css', array(), '1.0.0');
+
+            $generated_css = get_option('ai_chatbot_generated_css');
+            if ($generated_css) {
+                wp_enqueue_style('ai-chatbot-generated-css', $generated_css, array('ai-chatbot-css'), null);
+            }
             
             wp_localize_script('ai-chatbot-js', 'ai_chatbot_ajax', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
@@ -246,8 +251,20 @@ class AIChatBot {
         // Подключаем скрипты для админки
         if (isset($_GET['page']) && $_GET['page'] === 'ai-chatbot-settings') {
             wp_enqueue_style('ai-chatbot-admin', AI_CHATBOT_PLUGIN_URL . 'assets/css/admin.css');
-            wp_enqueue_script('ai-chatbot-admin', AI_CHATBOT_PLUGIN_URL . 'assets/js/admin-settings.js', array('jquery'), '1.0.0', true);
-            wp_enqueue_script('ai-chatbot-admin-realtime', AI_CHATBOT_PLUGIN_URL . 'assets/js/admin-realtime.js', array('jquery'), '1.0.0', true);
+            wp_enqueue_script(
+                'ai-chatbot-admin',
+                AI_CHATBOT_PLUGIN_URL . 'assets/js/admin-settings.js',
+                array('jquery'),
+                '1.0.0',
+                true
+            );
+            wp_enqueue_script(
+                'ai-chatbot-admin-realtime',
+                AI_CHATBOT_PLUGIN_URL . 'assets/js/admin-realtime.js',
+                array('jquery'),
+                '1.0.0',
+                true
+            );
             wp_localize_script('ai-chatbot-admin', 'ai_chatbot_admin', array(
                 'nonce' => wp_create_nonce('ai_chatbot_nonce')
             ));
@@ -271,32 +288,73 @@ class AIChatBot {
         // Сохраняем все настройки
         foreach ($settings as $key => $value) {
             $option_name = 'ai_chatbot_' . $key;
-            
+
             switch ($key) {
                 case 'bot_name_color':
                 case 'primary_color':
                 case 'secondary_color':
                     update_option($option_name, sanitize_hex_color($value));
                     break;
-                    
+
                 case 'margin':
                 case 'widget_size':
                 case 'avatar_size':
                 case 'font_size':
                     update_option($option_name, intval($value));
                     break;
-                    
+
+                case 'inactivity_timeout':
+                    $timeout = max(60000, intval($value));
+                    update_option($option_name, $timeout);
+                    break;
+
                 case 'color_scheme':
                 case 'window_size':
                 case 'font_family':
                 case 'animation':
+                case 'language':
+                case 'openai_model':
                     update_option($option_name, sanitize_text_field($value));
                     break;
-                    
+
+                case 'bot_name':
+                    update_option($option_name, sanitize_text_field($value));
+                    break;
+
+                case 'welcome_message':
+                case 'system_prompt':
+                    update_option($option_name, sanitize_textarea_field($value));
+                    break;
+
+                case 'avatar_url':
+                    update_option($option_name, esc_url_raw($value));
+                    break;
+
+                case 'email_to':
+                    update_option($option_name, sanitize_email($value));
+                    break;
+
+                case 'openai_key':
+                    update_option($option_name, sanitize_text_field($value));
+                    break;
+
+                case 'enabled':
+                    update_option($option_name, $value === '1' ? '1' : '0');
+                    break;
+
                 case 'custom_text':
                     if (is_array($value)) {
                         $sanitized_text = array_map('sanitize_text_field', $value);
                         update_option($option_name, $sanitized_text);
+                    }
+                    break;
+
+                default:
+                    if (is_array($value)) {
+                        $sanitized = array_map('sanitize_text_field', $value);
+                        update_option($option_name, $sanitized);
+                    } else {
+                        update_option($option_name, sanitize_text_field($value));
                     }
                     break;
             }
@@ -304,7 +362,7 @@ class AIChatBot {
         
         // Генерируем новый CSS
         if (!class_exists('AI_ChatBot_CSS_Generator')) {
-            require_once AI_CHATBOT_PLUGIN_DIR . 'includes/class-css-generator.php';
+            require_once AI_CHATBOT_PLUGIN_PATH . 'includes/class-css-generator.php';
         }
         
         $css_generator = new AI_ChatBot_CSS_Generator();

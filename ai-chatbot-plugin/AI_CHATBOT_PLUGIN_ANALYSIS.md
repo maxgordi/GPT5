@@ -93,3 +93,10 @@
 - Either include `assets/js/admin-settings.js` or remove the enqueue call.
 - Localize full frontend settings (provide `ai_chatbot_options.inactivity_timeout`) so JS runs without errors.
 - Wire spam filtering, add rate limiting, and improve error handling around OpenAI and cron retries.
+
+## 13. Изменения 2025-09-24
+- Добавлено подключение сгенерированного CSS-файла в `enqueue_scripts` и сохранение его URL при каждой регенерации, чтобы стили цветовых схем попадали на фронтенд.
+- Обработчик `ai_chatbot_save_realtime_settings` теперь санитизирует и сохраняет дополнительные поля (email, таймауты, тексты, ключи) и корректно обрабатывает значения чекбоксов.
+- `AI_ChatBot_Chat_History::send_chat_to_email()` использует адрес из настроек, форматирует тело с `\r\n` и отправляет через `wp_mail` на выбранного получателя.
+- Клиентский `chatbot.js` удаляет принудительную отправку истории, завершает сессию только после таймера неактивности через `ai_chatbot_session_end` и сбрасывает идентификатор.
+- `admin-realtime.js` собирает значения вручную, учитывает чекбоксы/радиокнопки, применяет предустановленные градиенты и приводит числовые параметры предпросмотра.
