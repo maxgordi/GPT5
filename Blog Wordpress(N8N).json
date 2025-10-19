@@ -1,0 +1,992 @@
+{
+  "name": "Blog Wordpress",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Write SEO Optimized Blog Post\n\n\n",
+        "height": 440,
+        "width": 420,
+        "color": 6
+      },
+      "id": "f2260e0a-1d3b-4ee9-b87e-d5f1d190542c",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -464,
+        208
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "title": "={{ $('Combine Blog Details').item.json.data[2].output.title }}",
+        "additionalFields": {
+          "content": "={{ $json.content }}",
+          "slug": "={{ $('Combine Blog Details').item.json.data[2].output.slug }}",
+          "status": "publish",
+          "commentStatus": "closed",
+          "sticky": false,
+          "postTemplate": {
+            "values": {}
+          }
+        }
+      },
+      "id": "a1231c2a-f1eb-43e6-b621-3ceda19d34ee",
+      "name": "Wordpress",
+      "type": "n8n-nodes-base.wordpress",
+      "position": [
+        -240,
+        928
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "wordpressApi": {
+          "id": "RtPuxsTuNlVsuZbF",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Create HTML\n\n\n",
+        "height": 280,
+        "width": 440,
+        "color": 7
+      },
+      "id": "811484d5-c6b4-4201-b31a-69377d14a803",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Post on Wordpress\n\n\n",
+        "height": 376,
+        "width": 332,
+        "color": 4
+      },
+      "id": "cc7a61f3-c6c3-4ff6-b680-68faf87fd7e3",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -352,
+        752
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "id": "f7184718-8d00-4aec-8edf-f34b5c87d62d",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        80,
+        624
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "7ZI76vLYf66TcheI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\"slug\": \"rpo-benefits-recruitment\",\n\"title\": \"7 Key Advantages of RPO for Modern Recruitment\",\n\"meta\": \"Explore how Recruitment Process Outsourcing (RPO) enhances hiring efficiency, reduces costs, and expands talent pools for businesses seeking top candidates.\"\n}"
+      },
+      "id": "b91fca27-3c51-46ac-a56b-3817c801e8e8",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        304,
+        624
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={\n  \"role\": \"system\",\n  \"content\": \"Ти — професійний SEO-копірайтер і маркетолог компанії SCMA KVK (Криворізька вагова компанія). Твоя задача — створювати унікальні, експертні та SEO-оптимізовані статті українською мовою, які допомагають бізнесу зрозуміти цінність точного зважування та стимулюють звернення до SCMA KVK для купівлі або консультації щодо автомобільних ваг. Пиши зрозуміло, з прикладами, технічно грамотно, але доступно.\"\n}\n\n{\n  \"role\": \"user\",\n  \"content\": \" {{ $json.output }}\n\nНа основі попередньої відповіді від ШІ агента який створює тему і опис нової статї згенеруй повну HTML-сторінку** у фірмовому стилі SCMA-KVK.: \n\n\n\nнічого від себе  ппо технічним моментам нічогоне придумуй лише опирайся на існуючу інформацію.\n\nА ось інформація з сайту компанії:\n\n[\n  {\n    \"url\": \"https://scma-kvk.com.ua/titan-standard-line-ua/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN STANDARD LINE\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Базова комплектація для неінтенсивного використання. Може доповнюватися опціями: захист від перевантаження, системи АСУ, світлова індикація.\",\n    \"key_features\": [\n      \"15 т – навантаження на вісь\",\n      \"до 100 зважувань/добу\",\n      \"5 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"15 років\",\n      \"тип_настилу\": \"8 мм, гладкий\",\n      \"силові_елементи\": \"4 шт, товщина 3-4-5 мм\",\n      \"ширина_колії\": \"1000 мм\",\n      \"фарбування\": \"Malchem (Європа)\"\n    },\n    \"safety\": [\n      \"Обмежувач з’їзду – профіль 80×40 мм або труба 76×4,2 мм\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н30.ST\",\n        \"max_weight_t\": \"30\",\n        \"division_kg\": \"10\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н40.ST\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н40.ST\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-Н40/60.ST\",\n        \"max_weight_t\": \"40/60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.ST\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.ST\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С24-Н60.ST\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"24×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H60/80.ST\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.ST\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H80.ST\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H80.ST\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.ST\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn5view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/titan-power-line/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN POWER LINE\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Посилена серія для підвищених навантажень, висока точність і зручність експлуатації; для великих ферм, митниць, складів.\",\n    \"key_features\": [\n      \"15 т – навантаження на вісь\",\n      \"до 200 зважувань/добу\",\n      \"5 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"20 років\",\n      \"тип_настилу\": \"8 мм, гладкий/рифлений\",\n      \"силові_елементи\": \"4 шт, товщина 4 мм\",\n      \"ширина_колії\": \"1000 мм\",\n      \"фарбування\": \"двошарове 80–100 μ, Malchem (Європа)\"\n    },\n    \"safety\": [\n      \"Обмежувач з’їзду – труба кругла 76×4,2 мм\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н40.PW\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н40.PW\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.PW\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.PW\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H60/80.PW\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.PW\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H80.PW\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H80.PW\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.PW\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn6view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/titan-best-line/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN BEST LINE\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Посилена конструкція з анти-системою зміщення платформи, для середнього вантажопотоку.\",\n    \"key_features\": [\n      \"20 т – навантаження на вісь\",\n      \"до 100 зважувань/добу\",\n      \"10 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"20 років\",\n      \"тип_настилу\": \"8 мм, гладкий\",\n      \"силові_елементи\": \"4 шт, товщина 5 мм\",\n      \"ширина_колії\": \"1000 мм\",\n      \"фарбування\": \"тришарове 100–120 μ, Malchem (Європа)\"\n    },\n    \"safety\": [\n      \"Антиопрокидувальні балки\",\n      \"Обмежувач з’їзду – труба 100×50 мм\",\n      \"Світловідбивна стрічка\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н40.BL\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.BL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.BL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H60/80.BL\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.BL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H80.BL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H80.BL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.BL\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn8view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/titan-universal-line/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN UNIVERSAL LINE\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Європейський тип, збільшена корисна площа, підвищена міцність; не потребують обмежувачів ходу, для інтенсивного використання.\",\n    \"key_features\": [\n      \"20 т – навантаження на вісь\",\n      \"15 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"25 років\",\n      \"тип_настилу\": \"8 мм, рифлений\",\n      \"силові_елементи\": \"5 шт, товщина 5 мм\",\n      \"ширина_колії\": \"1250 мм\",\n      \"фарбування\": \"тришарове 140–160 μ, PPG (США)\"\n    },\n    \"safety\": [\n      \"Обмежувач з’їзду – профіль 100×50 мм\",\n      \"Світловідбиваюча стрічка\",\n      \"Міжплатформне простір 0,5 м\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н60.UNL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"4\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н60.UNL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.UNL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.UNL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H80.UNL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.UNL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H100.UNL\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H100.UNL\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.UNL\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn7view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/universal_line_plus\",\n    \"type\": \"product\",\n    \"name\": \"TITAN UNIVERSAL LINE PLUS\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Сучасна серія для підвищеного вантажопотоку: збільшена площа платформи, посилені силові елементи; не потребують обмежувачів ходу.\",\n    \"key_features\": [\n      \"20 т – навантаження на вісь\",\n      \"15 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"25 років\",\n      \"тип_настилу\": \"8 мм, рифлений\",\n      \"силові_елементи\": \"8 шт, товщина 5 мм\",\n      \"ширина_колії\": \"1500 мм\",\n      \"фарбування\": \"тришарове 140–160 μ, PPG (США)\"\n    },\n    \"safety\": [\n      \"Антиопрокидувальні балки\",\n      \"Обмежувач з’їзду – профіль 100×50 мм\",\n      \"Світловідбивна стрічка\",\n      \"Міжплатформне простір 0,5 м\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н60.UNLP\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"4\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н60.UNLP\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.UNLP\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.UNLP\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H80.UNLP\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.UNLP\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H100.UNLP\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H100.UNLP\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.UNLP\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn16view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/metal-concrete-line/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN METAL-CONCRETE LINE\",\n    \"category\": \"Автомобільні ваги (металобетонні)\",\n    \"description\": \"Для екстремальних умов: залізобетонна платформа М300, висока корозійна стійкість, точність у інтенсивній експлуатації.\",\n    \"key_features\": [\n      \"15 т – навантаження на вісь\",\n      \"до 200 зважувань/добу\",\n      \"10 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"30 років\",\n      \"тип_настилу\": \"Бетон М300\",\n      \"ширина_колії\": \"3000 мм колійна\",\n      \"фарбування\": \"Malchem (Європа)\"\n    },\n    \"safety\": [\n      \"Обмежувач з’їзду – профіль 60×40 мм\",\n      \"Міжплатформне простір 0,8 м\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н60/80.MC\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3,3\",\n        \"load_cells\": \"4\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60/80.MC\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3,3\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H60/80.MC\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"18×3,3\",\n        \"load_cells\": \"8\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn9view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/metal-concrete-line-plus/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN METAL-CONCRETE LINE PLUS\",\n    \"category\": \"Автомобільні ваги (металобетонні)\",\n    \"description\": \"Для найважчих умов і екстремальних навантажень; розширена платформа 3300 мм, посилена конструкція з бетону М300.\",\n    \"key_features\": [\n      \"15 т – навантаження на вісь\",\n      \"10 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"30 років\",\n      \"тип_настилу\": \"Бетон М300\",\n      \"ширина_колії\": \"3300 мм суцільна\",\n      \"фарбування\": \"тришарове 140–160 μ, PPG (США)\"\n    },\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н60/80.MC+\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3,3\",\n        \"load_cells\": \"4\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60/80.MC+\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3,3\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H60/80.MC+\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"18×3,3\",\n        \"load_cells\": \"8\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn9view1\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/platform-ves/\",\n    \"type\": \"product\",\n    \"name\": \"Ваги платформні типу ВПДТ\",\n    \"category\": \"Платформні ваги\",\n    \"description\": \"Статичне зважування компактних і великогабаритних вантажів на платформі. Для промислових, складських, аграрних задач.\",\n    \"features\": [\n      \"автокалібрування, автонуль\",\n      \"вибірка тари до 100% від НП, введення тари з клавіатури\",\n      \"індикація нетто/брутто; підсумовування; друк\"\n    ],\n    \"technical_table\": {\n      \"НГЗ_кг\": [\n        \"200\",\n        \"500\",\n        \"1000\",\n        \"2000\",\n        \"3000\",\n        \"5000\",\n        \"10000\",\n        \"15000\",\n        \"20000\"\n      ],\n      \"НмПВ_кг\": [\n        \"2\",\n        \"2\",\n        \"4\",\n        \"20\",\n        \"20\",\n        \"20\",\n        \"40\",\n        \"100\",\n        \"100\"\n      ],\n      \"ціна_поділу_кг\": [\n        \"0,1\",\n        \"0,1\",\n        \"0,2\",\n        \"1\",\n        \"1\",\n        \"1\",\n        \"2\",\n        \"5\",\n        \"5\"\n      ],\n      \"клас_точності\": \"середній\",\n      \"інтерфейси\": \"RS232 або RS485\",\n      \"живлення\": \"220В 50Гц\",\n      \"потужність_Вт\": \"≤20\",\n      \"режим_роботи\": \"безперервний\",\n      \"термін_служби_років\": \"≥12\"\n    },\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn10view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/vagon-vesi-titan/\",\n    \"type\": \"product\",\n    \"name\": \"Ваги вагонні типу «ТИТАН»\",\n    \"category\": \"Вагонні/залізничні ваги\",\n    \"description\": \"Зважування вагонів на коліях у статичному режимі; реєстрація результатів у системі обліку.\",\n    \"features\": [\n      \"автокалібрування, автонуль\",\n      \"вибірка та введення тари з клавіатури\",\n      \"індикація нетто/брутто/тари\",\n      \"передача даних RS232\"\n    ],\n    \"technical_specs\": {\n      \"НПЗ_т\": [\n        \"60\",\n        \"80\",\n        \"100\",\n        \"150\",\n        \"200\"\n      ],\n      \"НмПВ_кг\": \"20e\",\n      \"дискретність_кг\": [\n        \"20\",\n        \"50\",\n        \"100\"\n      ],\n      \"ступінь_захисту\": {\n        \"датчики_та_з’єднання\": \"IP68\",\n        \"блок_індикації\": \"IP66\"\n      }\n    },\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn10view1\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/konveer-vesi-vkt/\",\n    \"type\": \"product\",\n    \"name\": \"Конвеєрні ваги типу ВКТ\",\n    \"category\": \"Конвеєрні ваги (безперервне зважування)\",\n    \"description\": \"Для безперервного зважування сипких/шматкових матеріалів на конвеєрі; індикація продуктивності у реальному часі; інтеграція з АСУ.\",\n    \"technical_specs\": {\n      \"тип_конвеєра\": \"стрічковий\",\n      \"ширина_стрічки_мм\": \"до 2000\",\n      \"макс_швидкість_м_с\": \"3\",\n      \"макс_продуктивність_т_год\": \"600\",\n      \"вихідний_сигнал\": \"4–20 мА, 0–5 В\",\n      \"інтерфейси\": \"Modbus, Profibus\",\n      \"індикація\": \"цифрова\",\n      \"температура_платформи_°C\": \"-20…+50\",\n      \"температура_блоку_керування_°C\": \"-10…+50\",\n      \"відстань_до_вторинної_апаратури_м\": \"≤100\",\n      \"ступінь_захисту\": {\n        \"АЦП\": \"IP65\",\n        \"блок_обробки\": \"IP40\"\n      },\n      \"похибка_%\": \"0,25–0,5–1\"\n    },\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn3search0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/equipment-ua/\",\n    \"type\": \"info\",\n    \"title\": \"Каталог / Вагове обладнання\",\n    \"description\": \"Огляд серій автомобільних ваг: STANDARD, POWER, BEST, UNIVERSAL, UNIVERSAL PLUS; металобетонні METAL-CONCRETE / METAL-CONCRETE PLUS; а також вагонні, платформні ВПДТ, конвеєрні ВКТ. Вказано діапазони довжини 6–22 м, макс. навантаженість 30–100 т, гарантія 5–15 років залежно від серії; наявні CTA на PDF-каталог, сервіс, держкомпенсацію до 40%.\",\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn4view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/about/\",\n    \"type\": \"info\",\n    \"title\": \"Про компанію\",\n    \"description\": \"Виробник промислових ваг з повним циклом: конструкторсько-технічний відділ, ВТК, монтажні бригади. Серійне виробництво, прямі поставки, оптові закупівлі — зниження вартості. >100 співробітників, 1600 м² виробничих площ; ваги у 15 країнах; ~133 вагові комплекси/рік; державні сертифікати й ліцензії; установка по Україні від 3 днів; державна компенсація від 25%.\",\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn12view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/servise-ua/\",\n    \"type\": \"info\",\n    \"title\": \"Сервісне обслуговування\",\n    \"description\": \"Послуги: організація повірки (Держметрологія), калібрування (власний спецтранспорт, еталонні гирі), діагностика/ремонт, монтаж/демонтаж. Рекомендації з регулярного ТО (щотижневе/щомісячне самостійно; щоквартальне–щорічне — служба). Контакти сервісного відділу: +38 (066) 360-05-51, +38 (066) 180-67-89, service@scma-kvk.com.ua; адреса: м. Кривий Ріг, вул. В. Бизова, 24.\",\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn14view0\"\n    ]\n  }\n]\"\n\n\n\n\n\n\n[\n  {\n    \"system\": \"CarWeigth Automation Suite\",\n    \"category\": \"Автоматизація вагового комплексу\",\n    \"description\": \"Комплексна система для автоматизації зважування транспортних засобів — повна інтеграція вагів, відеоспостереження, Telegram-бота, бази даних MySQL і бухгалтерської системи 1С. Призначена для промислових, аграрних і логістичних підприємств, що потребують контролю руху вантажів без участі оператора.\",\n    \"modules\": {\n      \"core\": [\n        \"автоматичне зважування без вагаря (режим безоператорний)\",\n        \"фотофіксація моменту зважування з 2–3 камер\",\n        \"інтеграція з 1С:Бухгалтерія, MySQL, Excel\",\n        \"Telegram-бот для отримання повідомлень у реальному часі\",\n        \"журнал зважувань із фільтрацією, архівом і резервним копіюванням\",\n        \"експорт у формати XLS, PDF, CSV\",\n        \"відеоспостереження з будь-якої точки світу (ПК / смартфон)\"\n      ],\n      \"optional\": [\n        \"розпізнавання номерних знаків або RFID-ідентифікація\",\n        \"світлофорна індикація та контроль заїзду/виїзду\",\n        \"датчики положення транспортного засобу\",\n        \"виведення інформації на табло (зовнішнє електронне табло)\",\n        \"підключення до SCADA / ERP систем підприємства\"\n      ]\n    },\n    \"hardware_requirements\": {\n      \"cpu\": \"Intel Core i3-3220 3.3GHz або вище\",\n      \"ram\": \"4 ГБ DDR3\",\n      \"hdd\": \"500–1000 ГБ\",\n      \"os\": \"Windows 7 / Windows 10 (64-bit)\",\n      \"display\": \"монітор 19'' 1600×900\",\n      \"ports\": \"4×USB, VGA, RJ45 (LAN), COM\",\n      \"software\": [\n        \"Microsoft Office 2010\",\n        \"Microsoft Security Essentials\",\n        \"Acrobat Reader\",\n        \"AnyDesk\"\n      ]\n    },\n    \"equipment_kit\": {\n      \"photo_module\": \"3× камери HIKVISION DS-2CD3T10D-I3 + 100м кабелю + стійки\",\n      \"rfid_module\": \"RFID-зчитувач + картки\",\n      \"signaling\": \"2× світлофори, 2× датчики положення Schneider Electric\",\n      \"printer\": \"XPrinter XP-T58L (чековий принтер)\",\n      \"server\": \"ПК із встановленим CarWeigth + MySQL\",\n      \"network\": \"виділена IP-адреса, стабільний інтернет ≥ 10 Мбіт/с\"\n    },\n    \"technical_specs\": {\n      \"db_structure\": [\n        \"вагова книга\",\n        \"підприємства\",\n        \"вантажі\",\n        \"автомобілі / вагони\",\n        \"водії\",\n        \"події системи\"\n      ],\n      \"security\": \"фотографії зберігаються лише у захищеній базі, без можливості видалення користувачем\",\n      \"camera_resolution\": \"Full HD, нічний режим\",\n      \"telegram_notifications\": \"дата, час, фото, маса, результат зважування\",\n      \"archive\": \"автоматичне резервне копіювання та передача на віддалений сервер\"\n    },\n    \"installation\": {\n      \"delivery_time\": \"5–7 днів\",\n      \"installation_time\": \"2–3 дні\",\n      \"warranty\": \"24 місяці\",\n      \"training\": \"інструктаж персоналу + документація користувача\"\n    },\n    \"pricing\": {\n      \"software_license\": \"33 800 грн (3 роки)\",\n      \"full_system_estimate\": \"≈ 290 000 грн (з ПДВ)\",\n      \"service_support\": \"післягарантійне обслуговування, оновлення ПЗ, підтримка через AnyDesk\"\n    },\n    \"use_cases\": [\n      \"автоматизація промислових вагових комплексів\",\n      \"логістичний облік вантажопотоків на підприємствах\",\n      \"інтеграція з бухгалтерією та ERP\",\n      \"моніторинг і аналітика у реальному часі\",\n      \"контроль вантажів на елеваторах, портах, митницях\"\n    ],\n    \"key_advantages\": [\n      \"зменшення людського фактору до мінімуму\",\n      \"оперативний доступ до зважувань через Telegram та мобільний додаток\",\n      \"безпечне зберігання даних і фото у базі\",\n      \"зручна інтеграція з 1С, MySQL, Excel\",\n      \"розширюваність системи (API, датчики, табло, RFID)\"\n    ],\n    \"technical_contacts\": {\n      \"company\": \"ТОВ «НВК Союзцветметавтоматика»\",\n      \"address\": \"м. Кривий Ріг, вул. В. Бизова, 24\",\n      \"phones\": [\n\n\n\n\\n\\nВикористовуй єдиний шаблон оформлення (відступи, кольори, шрифти, блоки). Не змінюй структуру HTML-дизайну — лише підстав текст у відповідні секції. якщо це стосується вагів Титан то так і пиши слово \"ТИТАН\" а не латинецею \n\\n\\nЗгенеруй **лише HTML-код** (нічого поза ним не додавай):\\n\\n<div class=\\\"scma-article\\\" style=\\\"max-width:auto;margin:0 auto;font-family: 'Lato', sans-serif;font-size:17px;color:#333333;line-height:1.8;\\\">\\n  <p class=\\\"lead\\\" style=\\\"font-style:italic;color:#0c71c3;background:#f2f7fc;padding:12px 18px;border-radius:12px;margin:16px 0 28px 0;\\\">\\n    [Короткий вступний абзац на 1–2 речення за змістом статті]\\n  </p>\\n\\n  <nav class=\\\"toc\\\" aria-label=\\\"Зміст\\\" style=\\\"background:#eef5fb;border-radius:10px;padding:12px 18px;margin-bottom:28px;\\\">\\n    <strong style=\\\"display:block;margin-bottom:6px;\\\">Зміст</strong>\\n    <ul style=\\\"list-style:none;padding:0;margin:0;\\\">\\n      <li><a href=\\\"#sec-1\\\" style=\\\"color:#0c71c3;text-decoration:none;\\\">1. [Перша секція]</a></li>\\n      <li><a href=\\\"#sec-2\\\" style=\\\"color:#0c71c3;text-decoration:none;\\\">2. [Друга секція]</a></li>\\n      <li><a href=\\\"#sec-3\\\" style=\\\"color:#0c71c3;text-decoration:none;\\\">3. [Третя секція]</a></li>\\n    </ul>\\n  </nav>\\n\\n  <h2 id=\\\"sec-1\\\" style=\\\"margin-top:30px;padding-bottom:6px;border-left:5px solid #0c71c3;padding-left:12px;\\\">[Основна проблема або контекст]</h2>\\n  <p>[Підстав текст з першої частини матеріалу]</p>\\n\\n  <h2 id=\\\"sec-2\\\" style=\\\"margin-top:40px;padding-bottom:6px;border-left:5px solid #0c71c3;padding-left:12px;\\\">[Рішення або технології SCMA-KVK]</h2>\\n  <p>[Підстав текст з основної частини: серії TITAN, CarWeigth, інтеграції тощо]</p>\\n\\n  <h2 id=\\\"sec-3\\\" style=\\\"margin-top:40px;padding-bottom:6px;border-left:5px solid #0c71c3;padding-left:12px;\\\">[Сервіс, експлуатація, безпека]</h2>\\n  <p>[Підстав завершальну частину тексту]</p>\\n\\n  <h2 id=\\\"faq\\\" style=\\\"margin-top:40px;padding-bottom:6px;border-left:5px solid #0c71c3;padding-left:12px;\\\">FAQ — часті запитання</h2>\\n  <dl style=\\\"background:#f2f7fc;border-radius:10px;padding:16px 20px;\\\">\\n    <dt><strong>[Питання 1]</strong></dt>\\n    <dd>[Відповідь 1]</dd>\\n    <dt><strong>[Питання 2]</strong></dt>\\n    <dd>[Відповідь 2]</dd>\\n    <dt><strong>[Питання 3]</strong></dt>\\n    <dd>[Відповідь 3]</dd>\\n  </dl>\\n\\n  <script type=\\\"application/ld+json\\\">\\n  {\\n    \\\"@context\\\": \\\"https://schema.org\\\",\\n    \\\"@type\\\": \\\"FAQPage\\\",\\n    \\\"mainEntity\\\": [\\n      {\\\"@type\\\": \\\"Question\\\", \\\"name\\\": \\\"[Питання 1]\\\", \\\"acceptedAnswer\\\": {\\\"@type\\\": \\\"Answer\\\", \\\"text\\\": \\\"[Відповідь 1]\\\"}},\\n      {\\\"@type\\\": \\\"Question\\\", \\\"name\\\": \\\"[Питання 2]\\\", \\\"acceptedAnswer\\\": {\\\"@type\\\": \\\"Answer\\\", \\\"text\\\": \\\"[Відповідь 2]\\\"}},\\n      {\\\"@type\\\": \\\"Question\\\", \\\"name\\\": \\\"[Питання 3]\\\", \\\"acceptedAnswer\\\": {\\\"@type\\\": \\\"Answer\\\", \\\"text\\\": \\\"[Відповідь 3]\\\"}}\\n    ]\\n  }\\n  </script>\\n\\n  <div style=\\\"background:#eef5fb;border-left:5px solid #0c71c3;border-radius:10px;padding:18px;margin:32px 0;\\\">\\n    <strong>Потрібна консультація або кошторис?</strong>\\n    <a style=\\\"color:#fff;background:#0c71c3;padding:8px 18px;border-radius:6px;text-decoration:none;display:inline-block;margin-top:9px;\\\" href=\\\"https://scma-kvk.com.ua/form/\\\">Залишити заявку</a>\\n  </div>\\n</div>\"\n}\n\n\n📈 SEO-вимоги:\n- Обсяг статті: 1000–1500 слів.\n- Мова: українська, технічна, але зрозуміла.\n- Структура: логічні H2/H3, списки <ul><li>, короткі абзаци.\n- Уникай прямих продажних фраз типу «купіть зараз» — заміни їх на корисні формулювання («зверніться до SCMA KVK», «отримайте консультацію»)."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ca1f3d20-0495-4f85-8f3b-851b3cd02954",
+      "name": "Create HTML",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        80,
+        96
+      ],
+      "typeVersion": 1.8,
+      "retryOnFail": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "7ZI76vLYf66TcheI",
+          "name": "OpenAi account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "id": "a6a1a26e-df11-432e-9e35-1c558c443b36",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        560,
+        352
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://scma-kvk.com.ua//wp-json/wp/v2/media/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Disposition",
+              "value": "=attachment; filename=\"cover-image-{{ $('Wordpress').item.json.id }}.jpeg\""
+            },
+            {
+              "name": "Content-Type",
+              "value": "image/png"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "id": "9e7ca6d9-8a3a-4d92-8a51-64f56de9b350",
+      "name": "Upload Image to Wordpress",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1408,
+        912
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "wordpressApi": {
+          "id": "RtPuxsTuNlVsuZbF",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://scma-kvk.com.ua/wp-json/wp/v2/posts/{{ $('Wordpress').item.json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"featured_media\": {{ $('Upload Image to Wordpress').item.json.id }}\n}\n",
+        "options": {}
+      },
+      "id": "2e2cc3cb-9ef0-4f36-b424-670f2bf45b53",
+      "name": "Set Image on Wordpress Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1616,
+        912
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "wordpressApi": {
+          "id": "RtPuxsTuNlVsuZbF",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Perplexity Research\n\n\n",
+        "height": 412,
+        "width": 972,
+        "color": 3
+      },
+      "id": "e169c7a7-6d1d-4df4-a51a-a0c50cbf4290",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1520,
+        848
+      ],
+      "typeVersion": 1,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"sonar\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Handeln Sie als professioneller Forscher, der in der Lage ist, detaillierte Zusammenfassungen zu den Themen Immobilien, Verkauf, Verwaltung und Wartung aus autoritativen Quellen zu finden.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Untersuchen Sie folgendes Thema und liefern Sie alle Informationen über: {{ $json.output }}\"\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "id": "e4be1c75-983d-42c8-8042-cad475906c1b",
+      "name": "Perplexity Research",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -960,
+        928
+      ],
+      "typeVersion": 4.2,
+      "retryOnFail": false,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23b8e8c4-9191-415a-9661-1b60d413528a",
+              "name": "research",
+              "type": "string",
+              "value": "={{ $json.choices[0].message.content.replaceAll(\"[1]\", \" - источник: \" +$json.citations[0]).replaceAll(\"[2]\",\" - источник:\" +$json.citations[1]).replaceAll(\"[3]\",\" - источник: \" +$json.citations[2]).replaceAll(\"[4]\",\" - источник: \"+$json.citations[3]).replaceAll(\"[5]\",\" - источник: \"+$json.citations[4]).replaceAll(\"[6]\",\" - источник: \"+$json.citations[5]).replaceAll(\"[7]\",\" - источник: \"+$json.citations[6]).replaceAll(\"[8]\",\" - источник: \"+$json.citations[7]).replaceAll(\"[9]\",\" - источник: \"+$json.citations[8]).replaceAll(\"[10]\",\" - источник: \"+$json.citations[9]) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9edcfe6e-7860-4857-ae51-1a6339639345",
+      "name": "Cleanup Links",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -800,
+        928
+      ],
+      "typeVersion": 3.4,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Create Title, Slug & Meta\n\n\n",
+        "height": 440,
+        "width": 440,
+        "color": 7
+      },
+      "id": "8cac4d4c-0f6a-4715-a3ee-10db5c27d0f5",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        320
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0afb2988-1481-4b04-b16d-fb33c50a16d0",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json.data[0].message.content.replaceAll('```html', '').replaceAll('```','') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "657df4a7-f33e-42fd-bd47-5afd6946bcab",
+      "name": "Cleanup HTML ",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        768,
+        624
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "content": "## Set Image for Wordpress Post",
+        "height": 440,
+        "width": 1300
+      },
+      "id": "0641e371-b120-40df-86a4-a691dce8fc3e",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16,
+        848
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "55a1616c-b0b7-4eba-9a64-6494ccf96158",
+      "name": "Combine Blog Details",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        768,
+        368
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={\n  \"role\": \"system\",\n  \"content\": \"Ти — професійний SEO-копірайтер і маркетолог Криворізької вагової компанії (SCMA-KVK). Твоя задача — створювати зрозумілі, технічно коректні й переконливі тексти для сайту scma-kvk.com.ua, що допомагають бізнесам обрати вагове обладнання (автомобільні, вагонні, конвеєрні ваги), а також сервіси з монтажу, повірки, калібрування та ремонту. Пиши українською, уникай загальних фраз, використовуй конкретику і переваги автомобільних ваг.\"\n},\n{\n  \"role\": \"user\",\n  \"content\": \"Проаналізуй список вже опублікованих заголовків та вмісту:\\n\\{{ $json.output }}n\\n  придумай нову , не схожу на існуючі унікальну та тему для блогу\nА ось інформація з сайту компанії:\n\n[\n  {\n    \"url\": \"https://scma-kvk.com.ua/titan-standard-line-ua/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN STANDARD LINE\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Базова комплектація для неінтенсивного використання. Може доповнюватися опціями: захист від перевантаження, системи АСУ, світлова індикація.\",\n    \"key_features\": [\n      \"15 т – навантаження на вісь\",\n      \"до 100 зважувань/добу\",\n      \"5 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"15 років\",\n      \"тип_настилу\": \"8 мм, гладкий\",\n      \"силові_елементи\": \"4 шт, товщина 3-4-5 мм\",\n      \"ширина_колії\": \"1000 мм\",\n      \"фарбування\": \"Malchem (Європа)\"\n    },\n    \"safety\": [\n      \"Обмежувач з’їзду – профіль 80×40 мм або труба 76×4,2 мм\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н30.ST\",\n        \"max_weight_t\": \"30\",\n        \"division_kg\": \"10\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н40.ST\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н40.ST\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-Н40/60.ST\",\n        \"max_weight_t\": \"40/60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.ST\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.ST\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С24-Н60.ST\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"24×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H60/80.ST\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.ST\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H80.ST\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H80.ST\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.ST\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn5view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/titan-power-line/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN POWER LINE\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Посилена серія для підвищених навантажень, висока точність і зручність експлуатації; для великих ферм, митниць, складів.\",\n    \"key_features\": [\n      \"15 т – навантаження на вісь\",\n      \"до 200 зважувань/добу\",\n      \"5 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"20 років\",\n      \"тип_настилу\": \"8 мм, гладкий/рифлений\",\n      \"силові_елементи\": \"4 шт, товщина 4 мм\",\n      \"ширина_колії\": \"1000 мм\",\n      \"фарбування\": \"двошарове 80–100 μ, Malchem (Європа)\"\n    },\n    \"safety\": [\n      \"Обмежувач з’їзду – труба кругла 76×4,2 мм\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н40.PW\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н40.PW\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.PW\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.PW\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H60/80.PW\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.PW\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H80.PW\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H80.PW\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.PW\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn6view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/titan-best-line/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN BEST LINE\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Посилена конструкція з анти-системою зміщення платформи, для середнього вантажопотоку.\",\n    \"key_features\": [\n      \"20 т – навантаження на вісь\",\n      \"до 100 зважувань/добу\",\n      \"10 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"20 років\",\n      \"тип_настилу\": \"8 мм, гладкий\",\n      \"силові_елементи\": \"4 шт, товщина 5 мм\",\n      \"ширина_колії\": \"1000 мм\",\n      \"фарбування\": \"тришарове 100–120 μ, Malchem (Європа)\"\n    },\n    \"safety\": [\n      \"Антиопрокидувальні балки\",\n      \"Обмежувач з’їзду – труба 100×50 мм\",\n      \"Світловідбивна стрічка\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н40.BL\",\n        \"max_weight_t\": \"40\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.BL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.BL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H60/80.BL\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.BL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H80.BL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H80.BL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.BL\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn8view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/titan-universal-line/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN UNIVERSAL LINE\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Європейський тип, збільшена корисна площа, підвищена міцність; не потребують обмежувачів ходу, для інтенсивного використання.\",\n    \"key_features\": [\n      \"20 т – навантаження на вісь\",\n      \"15 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"25 років\",\n      \"тип_настилу\": \"8 мм, рифлений\",\n      \"силові_елементи\": \"5 шт, товщина 5 мм\",\n      \"ширина_колії\": \"1250 мм\",\n      \"фарбування\": \"тришарове 140–160 μ, PPG (США)\"\n    },\n    \"safety\": [\n      \"Обмежувач з’їзду – профіль 100×50 мм\",\n      \"Світловідбиваюча стрічка\",\n      \"Міжплатформне простір 0,5 м\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н60.UNL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"4\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н60.UNL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.UNL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.UNL\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H80.UNL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.UNL\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H100.UNL\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H100.UNL\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.UNL\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn7view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/universal_line_plus\",\n    \"type\": \"product\",\n    \"name\": \"TITAN UNIVERSAL LINE PLUS\",\n    \"category\": \"Автомобільні ваги (металеві)\",\n    \"description\": \"Сучасна серія для підвищеного вантажопотоку: збільшена площа платформи, посилені силові елементи; не потребують обмежувачів ходу.\",\n    \"key_features\": [\n      \"20 т – навантаження на вісь\",\n      \"15 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"25 років\",\n      \"тип_настилу\": \"8 мм, рифлений\",\n      \"силові_елементи\": \"8 шт, товщина 5 мм\",\n      \"ширина_колії\": \"1500 мм\",\n      \"фарбування\": \"тришарове 140–160 μ, PPG (США)\"\n    },\n    \"safety\": [\n      \"Антиопрокидувальні балки\",\n      \"Обмежувач з’їзду – профіль 100×50 мм\",\n      \"Світловідбивна стрічка\",\n      \"Міжплатформне простір 0,5 м\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н60.UNLP\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3×0,4\",\n        \"load_cells\": \"4\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С8-Н60.UNLP\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"8×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С10-H60.UNLP\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"10×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60.UNLP\",\n        \"max_weight_t\": \"60\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3×0,4\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С14-H80.UNLP\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"14×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С16-H80.UNLP\",\n        \"max_weight_t\": \"80\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"16×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H100.UNLP\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"18×3×0,4\",\n        \"load_cells\": \"8\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С20-H100.UNLP\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"20×3×0,4\",\n        \"load_cells\": \"10\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С22-H100.UNLP\",\n        \"max_weight_t\": \"100\",\n        \"division_kg\": \"20/50\",\n        \"size_m\": \"22×3×0,4\",\n        \"load_cells\": \"10\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn16view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/metal-concrete-line/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN METAL-CONCRETE LINE\",\n    \"category\": \"Автомобільні ваги (металобетонні)\",\n    \"description\": \"Для екстремальних умов: залізобетонна платформа М300, висока корозійна стійкість, точність у інтенсивній експлуатації.\",\n    \"key_features\": [\n      \"15 т – навантаження на вісь\",\n      \"до 200 зважувань/добу\",\n      \"10 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"30 років\",\n      \"тип_настилу\": \"Бетон М300\",\n      \"ширина_колії\": \"3000 мм колійна\",\n      \"фарбування\": \"Malchem (Європа)\"\n    },\n    \"safety\": [\n      \"Обмежувач з’їзду – профіль 60×40 мм\",\n      \"Міжплатформне простір 0,8 м\"\n    ],\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н60/80.MC\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3,3\",\n        \"load_cells\": \"4\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60/80.MC\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3,3\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H60/80.MC\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"18×3,3\",\n        \"load_cells\": \"8\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn9view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/metal-concrete-line-plus/\",\n    \"type\": \"product\",\n    \"name\": \"TITAN METAL-CONCRETE LINE PLUS\",\n    \"category\": \"Автомобільні ваги (металобетонні)\",\n    \"description\": \"Для найважчих умов і екстремальних навантажень; розширена платформа 3300 мм, посилена конструкція з бетону М300.\",\n    \"key_features\": [\n      \"15 т – навантаження на вісь\",\n      \"10 років безумовної гарантії на платформу\"\n    ],\n    \"operating_specs\": {\n      \"розрахунковий_термін_експлуатації\": \"30 років\",\n      \"тип_настилу\": \"Бетон М300\",\n      \"ширина_колії\": \"3300 мм суцільна\",\n      \"фарбування\": \"тришарове 140–160 μ, PPG (США)\"\n    },\n    \"model_range\": [\n      {\n        \"model\": \"ТИТАН-ВА-С6-Н60/80.MC+\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"6×3,3\",\n        \"load_cells\": \"4\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С12-H60/80.MC+\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"12×3,3\",\n        \"load_cells\": \"6\"\n      },\n      {\n        \"model\": \"ТИТАН-ВА-С18-H60/80.MC+\",\n        \"max_weight_t\": \"60/80\",\n        \"division_kg\": \"20\",\n        \"size_m\": \"18×3,3\",\n        \"load_cells\": \"8\"\n      }\n    ],\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn9view1\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/platform-ves/\",\n    \"type\": \"product\",\n    \"name\": \"Ваги платформні типу ВПДТ\",\n    \"category\": \"Платформні ваги\",\n    \"description\": \"Статичне зважування компактних і великогабаритних вантажів на платформі. Для промислових, складських, аграрних задач.\",\n    \"features\": [\n      \"автокалібрування, автонуль\",\n      \"вибірка тари до 100% від НП, введення тари з клавіатури\",\n      \"індикація нетто/брутто; підсумовування; друк\"\n    ],\n    \"technical_table\": {\n      \"НГЗ_кг\": [\n        \"200\",\n        \"500\",\n        \"1000\",\n        \"2000\",\n        \"3000\",\n        \"5000\",\n        \"10000\",\n        \"15000\",\n        \"20000\"\n      ],\n      \"НмПВ_кг\": [\n        \"2\",\n        \"2\",\n        \"4\",\n        \"20\",\n        \"20\",\n        \"20\",\n        \"40\",\n        \"100\",\n        \"100\"\n      ],\n      \"ціна_поділу_кг\": [\n        \"0,1\",\n        \"0,1\",\n        \"0,2\",\n        \"1\",\n        \"1\",\n        \"1\",\n        \"2\",\n        \"5\",\n        \"5\"\n      ],\n      \"клас_точності\": \"середній\",\n      \"інтерфейси\": \"RS232 або RS485\",\n      \"живлення\": \"220В 50Гц\",\n      \"потужність_Вт\": \"≤20\",\n      \"режим_роботи\": \"безперервний\",\n      \"термін_служби_років\": \"≥12\"\n    },\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn10view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/vagon-vesi-titan/\",\n    \"type\": \"product\",\n    \"name\": \"Ваги вагонні типу «ТИТАН»\",\n    \"category\": \"Вагонні/залізничні ваги\",\n    \"description\": \"Зважування вагонів на коліях у статичному режимі; реєстрація результатів у системі обліку.\",\n    \"features\": [\n      \"автокалібрування, автонуль\",\n      \"вибірка та введення тари з клавіатури\",\n      \"індикація нетто/брутто/тари\",\n      \"передача даних RS232\"\n    ],\n    \"technical_specs\": {\n      \"НПЗ_т\": [\n        \"60\",\n        \"80\",\n        \"100\",\n        \"150\",\n        \"200\"\n      ],\n      \"НмПВ_кг\": \"20e\",\n      \"дискретність_кг\": [\n        \"20\",\n        \"50\",\n        \"100\"\n      ],\n      \"ступінь_захисту\": {\n        \"датчики_та_з’єднання\": \"IP68\",\n        \"блок_індикації\": \"IP66\"\n      }\n    },\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn10view1\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/konveer-vesi-vkt/\",\n    \"type\": \"product\",\n    \"name\": \"Конвеєрні ваги типу ВКТ\",\n    \"category\": \"Конвеєрні ваги (безперервне зважування)\",\n    \"description\": \"Для безперервного зважування сипких/шматкових матеріалів на конвеєрі; індикація продуктивності у реальному часі; інтеграція з АСУ.\",\n    \"technical_specs\": {\n      \"тип_конвеєра\": \"стрічковий\",\n      \"ширина_стрічки_мм\": \"до 2000\",\n      \"макс_швидкість_м_с\": \"3\",\n      \"макс_продуктивність_т_год\": \"600\",\n      \"вихідний_сигнал\": \"4–20 мА, 0–5 В\",\n      \"інтерфейси\": \"Modbus, Profibus\",\n      \"індикація\": \"цифрова\",\n      \"температура_платформи_°C\": \"-20…+50\",\n      \"температура_блоку_керування_°C\": \"-10…+50\",\n      \"відстань_до_вторинної_апаратури_м\": \"≤100\",\n      \"ступінь_захисту\": {\n        \"АЦП\": \"IP65\",\n        \"блок_обробки\": \"IP40\"\n      },\n      \"похибка_%\": \"0,25–0,5–1\"\n    },\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn3search0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/equipment-ua/\",\n    \"type\": \"info\",\n    \"title\": \"Каталог / Вагове обладнання\",\n    \"description\": \"Огляд серій автомобільних ваг: STANDARD, POWER, BEST, UNIVERSAL, UNIVERSAL PLUS; металобетонні METAL-CONCRETE / METAL-CONCRETE PLUS; а також вагонні, платформні ВПДТ, конвеєрні ВКТ. Вказано діапазони довжини 6–22 м, макс. навантаженість 30–100 т, гарантія 5–15 років залежно від серії; наявні CTA на PDF-каталог, сервіс, держкомпенсацію до 40%.\",\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn4view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/about/\",\n    \"type\": \"info\",\n    \"title\": \"Про компанію\",\n    \"description\": \"Виробник промислових ваг з повним циклом: конструкторсько-технічний відділ, ВТК, монтажні бригади. Серійне виробництво, прямі поставки, оптові закупівлі — зниження вартості. >100 співробітників, 1600 м² виробничих площ; ваги у 15 країнах; ~133 вагові комплекси/рік; державні сертифікати й ліцензії; установка по Україні від 3 днів; державна компенсація від 25%.\",\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn12view0\"\n    ]\n  },\n  {\n    \"url\": \"https://scma-kvk.com.ua/servise-ua/\",\n    \"type\": \"info\",\n    \"title\": \"Сервісне обслуговування\",\n    \"description\": \"Послуги: організація повірки (Держметрологія), калібрування (власний спецтранспорт, еталонні гирі), діагностика/ремонт, монтаж/демонтаж. Рекомендації з регулярного ТО (щотижневе/щомісячне самостійно; щоквартальне–щорічне — служба). Контакти сервісного відділу: +38 (066) 360-05-51, +38 (066) 180-67-89, service@scma-kvk.com.ua; адреса: м. Кривий Ріг, вул. В. Бизова, 24.\",\n    \"last_checked\": \"2025-10-18\",\n    \"sources\": [\n      \"turn14view0\"\n    ]\n  }\n]\"\n\n\n\n\n\n\n[\n  {\n    \"system\": \"CarWeigth Automation Suite\",\n    \"category\": \"Автоматизація вагового комплексу\",\n    \"description\": \"Комплексна система для автоматизації зважування транспортних засобів — повна інтеграція вагів, відеоспостереження, Telegram-бота, бази даних MySQL і бухгалтерської системи 1С. Призначена для промислових, аграрних і логістичних підприємств, що потребують контролю руху вантажів без участі оператора.\",\n    \"modules\": {\n      \"core\": [\n        \"автоматичне зважування без вагаря (режим безоператорний)\",\n        \"фотофіксація моменту зважування з 2–3 камер\",\n        \"інтеграція з 1С:Бухгалтерія, MySQL, Excel\",\n        \"Telegram-бот для отримання повідомлень у реальному часі\",\n        \"журнал зважувань із фільтрацією, архівом і резервним копіюванням\",\n        \"експорт у формати XLS, PDF, CSV\",\n        \"відеоспостереження з будь-якої точки світу (ПК / смартфон)\"\n      ],\n      \"optional\": [\n        \"розпізнавання номерних знаків або RFID-ідентифікація\",\n        \"світлофорна індикація та контроль заїзду/виїзду\",\n        \"датчики положення транспортного засобу\",\n        \"виведення інформації на табло (зовнішнє електронне табло)\",\n        \"підключення до SCADA / ERP систем підприємства\"\n      ]\n    },\n    \"hardware_requirements\": {\n      \"cpu\": \"Intel Core i3-3220 3.3GHz або вище\",\n      \"ram\": \"4 ГБ DDR3\",\n      \"hdd\": \"500–1000 ГБ\",\n      \"os\": \"Windows 7 / Windows 10 (64-bit)\",\n      \"display\": \"монітор 19'' 1600×900\",\n      \"ports\": \"4×USB, VGA, RJ45 (LAN), COM\",\n      \"software\": [\n        \"Microsoft Office 2010\",\n        \"Microsoft Security Essentials\",\n        \"Acrobat Reader\",\n        \"AnyDesk\"\n      ]\n    },\n    \"equipment_kit\": {\n      \"photo_module\": \"3× камери HIKVISION DS-2CD3T10D-I3 + 100м кабелю + стійки\",\n      \"rfid_module\": \"RFID-зчитувач + картки\",\n      \"signaling\": \"2× світлофори, 2× датчики положення Schneider Electric\",\n      \"printer\": \"XPrinter XP-T58L (чековий принтер)\",\n      \"server\": \"ПК із встановленим CarWeigth + MySQL\",\n      \"network\": \"виділена IP-адреса, стабільний інтернет ≥ 10 Мбіт/с\"\n    },\n    \"technical_specs\": {\n      \"db_structure\": [\n        \"вагова книга\",\n        \"підприємства\",\n        \"вантажі\",\n        \"автомобілі / вагони\",\n        \"водії\",\n        \"події системи\"\n      ],\n      \"security\": \"фотографії зберігаються лише у захищеній базі, без можливості видалення користувачем\",\n      \"camera_resolution\": \"Full HD, нічний режим\",\n      \"telegram_notifications\": \"дата, час, фото, маса, результат зважування\",\n      \"archive\": \"автоматичне резервне копіювання та передача на віддалений сервер\"\n    },\n    \"installation\": {\n      \"delivery_time\": \"5–7 днів\",\n      \"installation_time\": \"2–3 дні\",\n      \"warranty\": \"24 місяці\",\n      \"training\": \"інструктаж персоналу + документація користувача\"\n    },\n    \"pricing\": {\n      \"software_license\": \"33 800 грн (3 роки)\",\n      \"full_system_estimate\": \"≈ 290 000 грн (з ПДВ)\",\n      \"service_support\": \"післягарантійне обслуговування, оновлення ПЗ, підтримка через AnyDesk\"\n    },\n    \"use_cases\": [\n      \"автоматизація промислових вагових комплексів\",\n      \"логістичний облік вантажопотоків на підприємствах\",\n      \"інтеграція з бухгалтерією та ERP\",\n      \"моніторинг і аналітика у реальному часі\",\n      \"контроль вантажів на елеваторах, портах, митницях\"\n    ],\n    \"key_advantages\": [\n      \"зменшення людського фактору до мінімуму\",\n      \"оперативний доступ до зважувань через Telegram та мобільний додаток\",\n      \"безпечне зберігання даних і фото у базі\",\n      \"зручна інтеграція з 1С, MySQL, Excel\",\n      \"розширюваність системи (API, датчики, табло, RFID)\"\n    ],\n    \"technical_contacts\": {\n      \"company\": \"ТОВ «НВК Союзцветметавтоматика»\",\n      \"address\": \"м. Кривий Ріг, вул. В. Бизова, 24\",\n      \"phones\": [\n\n\n\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -400,
+        368
+      ],
+      "id": "f90374fe-c46a-44fd-8f23-5e1524aea284",
+      "name": "Копирайтер AI Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Створи SEO заголовок і meta-опис для такого контенту:\n{{ $json.output }}\ntitle - повинен бути SEO оптимізованим приблизно до 10 слів\n\n🔹 Правила для meta:\n- 150–160 знаків; природні ключі: автомобільні ваги, вагонні/конвеєрні ваги, монтаж, повірка, сервіс, , елеватори, логістика. Можна також використовувати автомобыльны ваги купити ціна.\n- Чітко передає користь і очікуваний результат.\n\n📤 Виведи РІВНО ОДИН валідний JSON-об’єкт без коментарів:\n{\n  \"slug\": \"...\",\n  \"title\": \"...\",\n  \"meta\": \"...\"\n}\n",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        80,
+        448
+      ],
+      "id": "27d7753f-eff7-44a1-a092-422a57a32951",
+      "name": "AI Agent",
+      "retryOnFail": false,
+      "maxTries": 5
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "id": "080975cf-9062-40cb-9489-51393eba4551",
+      "name": "Wait 60sec",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1088,
+        1008
+      ],
+      "webhookId": "ed16fdbf-e268-43d4-98cd-c8c72fdd636d"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Згенеруй опис фото посту на сайт (блог)для теми без тексту(слів. літер) лише одна сплошна фотографыя повинна бути без коладжжів і т . д : {{ $('Копирайтер AI Agent').item.json.output }}\n\n",
+              "role": "system"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cc29d528-4beb-4439-bfe2-bd7de79d775a",
+      "name": "Промпт для фото",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.6,
+      "position": [
+        80,
+        928
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "7ZI76vLYf66TcheI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {}
+      },
+      "id": "72dd7035-98a9-4a8f-828b-1b38b2a48b56",
+      "name": "gpt-4o-mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        -400,
+        528
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "7ZI76vLYf66TcheI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://scma-kvk.com.ua//wp-json/wp/v2/media/{{ $json.featured_media }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"alt_text\": \"{{ $('AI Agent').item.json.output.meta }}\",\n  \"title\": \"{{ $('AI Agent').item.json.output.title }}\",\n  \"caption\": \"{{ $('AI Agent').item.json.output.title }}\",\n  \"description\": \"{{ $('AI Agent').item.json.output.meta }}\"\n}",
+        "options": {}
+      },
+      "id": "62e7839d-c426-48d2-ab20-b486afc70859",
+      "name": "Добавление мета данных",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1872,
+        912
+      ],
+      "credentials": {
+        "wordpressApi": {
+          "id": "RtPuxsTuNlVsuZbF",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash-image-preview",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash-image-preview (Nano Banana)"
+        },
+        "prompt": "=Do not use any text on the image — no Cyrillic, no Latin, no numbers — absolutely no text at all.  \nThe result must be a single, seamless photo on the topic: \"photo\".  \n{{ $('Промпт для фото').item.json.message.content }}\n\nIf you are generating truck scales (automobile weighing platforms):  \nMain platform color: black-gray (metallic, dark shade).  \nЭти элементы — это низкие металлические бортики (бортовые ограничители), установленные по краям платформы автомобильных весов.\nОни:\n\nузкие и длинные,\n\nокрашены в ярко-оранжевый цвет,\n\nимеют угловатую, скошенную форму (не круглые, не перила),\n\nзакреплены поверх металлической платформы, вдоль всей её длины,\n\nнемного возвышаются над настилом — примерно на 10–15 см. цвет - orange ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        448,
+        928
+      ],
+      "id": "38831d05-c3d9-4160-aca8-c07682d822f3",
+      "name": "Generate an image1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NTMvNG1hCYJnnebR",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://scma-kvk.com.ua/news-ua/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1200,
+        368
+      ],
+      "id": "09fb33b8-914f-46c0-962d-3e63763c1feb",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// === SCMA-KVK Parser (v5: title + date + correct excerpt-before-\"читати більше\") ===\n\nconst html = items[0].json.body || items[0].json.data || \"\";\nif (!html || html.length < 50) {\n  return [{ json: { error: \"HTML не найден. Проверь HTTP Request node.\" } }];\n}\n\n// берём только первые 15 <article>…</article>\nconst postRegex = /<article[\\s\\S]*?<\\/article>/gi;\nconst posts = (html.match(postRegex) || []).slice(0, 30);\n\nconst normText = s =>\n  s.replace(/<[^>]+>/g, \" \")     // убираем HTML\n   .replace(/\\s+/g, \" \")         // сжимаем пробелы\n   .replace(/&nbsp;/gi, \" \")\n   .trim();\n\nconst monthsUA = \"(Січ|Лют|Бер|Кві|Тра|Чер|Лип|Сер|Вер|Жов|Лис|Гру)\";\nconst monthRuEn = \"(Янв|Фев|Мар|Апр|Мая|Июн|Июл|Авг|Сен|Окт|Ноя|Дек|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\";\nconst dateRegexLoose = new RegExp(`\\\\b(${monthsUA}|${monthRuEn})\\\\.?\\\\s?\\\\d{1,2},?\\\\s?\\\\d{4}\\\\b`);\n\nconst results = [];\n\nfor (const post of posts) {\n  // --- Title ---\n  const mTitle = post.match(/<h2[^>]*>\\s*<a[^>]*>(.*?)<\\/a>\\s*<\\/h2>/i);\n  const title = mTitle ? normText(mTitle[1]) : \"\";\n\n  // --- Date (ищем разные варианты) ---\n  let date = \"\";\n  const mSpan = post.match(/<span[^>]*class=[\"']?published[\"']?[^>]*>(.*?)<\\/span>/i);\n  if (mSpan) date = normText(mSpan[1]);\n\n  if (!date) {\n    const mTime = post.match(/<time[^>]*>(.*?)<\\/time>/i);\n    if (mTime) date = normText(mTime[1]);\n  }\n\n  if (!date) {\n    const mMeta = post.match(/<p[^>]*class=[\"']?post-meta[\"']?[^>]*>(.*?)<\\/p>/i);\n    if (mMeta) date = normText(mMeta[1]);\n  }\n\n  if (!date) {\n    const afterH2 = post.split(/<\\/h2>/i)[1] || \"\";\n    const mLoose = afterH2.match(dateRegexLoose);\n    if (mLoose) date = normText(mLoose[0]);\n  }\n\n  // --- Description (строго текст до \"читати більше\" / \"читать дальше\" / \"read more\") ---\n  // 1) Вырезаем контентную часть после заголовка\n  const afterTitleHtml = post.split(/<\\/h2>/i)[1] || post;\n  // 2) Обрезаем по ссылке \"read more\"\n  const readMoreRe = /<a[^>]*>(?:читати\\s+(?:більше|далі)|читать\\s+дальше|read\\s+more)<\\/a>/i;\n  const cutAtReadMore = readMoreRe.test(afterTitleHtml)\n    ? afterTitleHtml.split(readMoreRe)[0]\n    : afterTitleHtml;\n\n  // 3) Пробуем найти явный контейнер с контентом\n  let contentChunk = cutAtReadMore;\n  const mContainer = cutAtReadMore.match(\n    /<div[^>]*class=[\"'][^\"']*(?:entry-content|post-content|post-excerpt|excerpt|the-excerpt)[^\"']*[\"'][^>]*>([\\s\\S]*?)<\\/div>/i\n  );\n  if (mContainer) contentChunk = mContainer[1];\n\n  // 4) Берём первый осмысленный <p>, не являющийся метаданными\n  let description = \"\";\n  const pMatches = contentChunk.match(/<p[^>]*>[\\s\\S]*?<\\/p>/gi) || [];\n  for (const p of pMatches) {\n    const txt = normText(p);\n    if (!txt) continue;\n    // отбрасываем явные мета-строки (дата, телефоны, \"ЗА КОНСУЛЬТАЦІЄЮ ...\" и т.п.)\n    const looksLikeDate = dateRegexLoose.test(txt);\n    const isMeta = /^(тел|phone|за консультацією|контакти|контакты)/i.test(txt);\n    const containsReadMoreWord = /(читати|читать|read)\\s+(більше|далі|дальше|more)/i.test(txt);\n    if (!looksLikeDate && !isMeta && !containsReadMoreWord && txt.length > 20) {\n      description = txt;\n      break;\n    }\n  }\n\n  // 5) Если подходящего <p> не нашли, берём «сырой» текст между датой и read more\n  if (!description) {\n    let raw = normText(contentChunk);\n    // вырезаем саму дату, если она попала внутрь\n    if (date && raw.startsWith(date)) raw = raw.slice(date.length).trim();\n    // иногда в начале бывает служебный мусор — укоротим «заголовок/дату», если остались\n    description = raw;\n  }\n\n  // 6) Безопасное усечение до 200 символов по слову\n  const limit = 200;\n  if (description.length > limit) {\n    const cut = description.slice(0, limit);\n    description = (cut.lastIndexOf(\" \") > 0 ? cut.slice(0, cut.lastIndexOf(\" \")) : cut) + \"…\";\n  }\n\n  if (title) results.push({ title, date, description });\n}\n\nif (results.length === 0) {\n  return [{ json: { error: \"Не удалось найти статьи/описания. Проверь HTML-разметку страницы.\" } }];\n}\n\nreturn results.map(r => ({ json: r }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -992,
+        368
+      ],
+      "id": "9c99a75c-57fe-4051-a973-b477c9d0af7e",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "content": "## Shearch theme page\n",
+        "height": 416,
+        "width": 864,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1440,
+        224
+      ],
+      "typeVersion": 1,
+      "id": "e9d71948-ecec-402c-8b9f-e88b614c23c0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={\n  \"model\": \"gpt-5\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Ты — профессиональный SEO-копирайтер и аналитик контента в сфере недвижимости. Твоя задача — придумывать ОДИН оригинальный, SEO-оптимизированный заголовок (в формате поискового запроса) для следующей статьи на сайт компании, работающей в направлениях: продажа и посредничество недвижимости, строительство, управление недвижимостью, финансирование, инвестиции, новости рынка, подбор персонала.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Проанализируй список уже существующих заголовков:\n{{ $json.titles }}.\nНе повторяй их по смыслу или формулировке. Определи общую тематику, стиль и тон сайта. Создай новый, уникальный заголовок, который будет одновременно интересен пользователям и улучшит SEO. Включай релевантные ключевые слова из тематики: Immobilien, Immobilienverkauf, Hausverwaltung, Finanzierung, Invest, Bauträger, Sanierung, regionale Immobilienmarkt. Локальный фокус — Stade, Hamburg, Buxtehude и регион. Заголовок должен звучать естественно, как поисковый запрос пользователя, и быть оптимизирован под Google.\"\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -1408,
+        928
+      ],
+      "id": "b51f2636-b818-415d-a1b9-a030db3ab316",
+      "name": "AI Agent1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1424,
+        1104
+      ],
+      "id": "24f54fba-bef9-46f3-9674-5da3bd95c624",
+      "name": "OpenAI Chat Model1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst formatted = items.map(item => {\n  const title = item.json.title || \"\";\n  const date = item.json.date || \"\";\n  const description = item.json.description || \"\";\n  return `• ${title} (${date}) — ${description}`;\n}).join('\\n\\n');\n\nreturn [{ json: { output: formatted } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -784,
+        368
+      ],
+      "id": "316aaa3b-484e-4740-8174-53bf8def448b",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "762f9476-a05a-4d25-9856-f2eb90aba31a",
+              "leftValue": "={{$json.hasImage}}",
+              "rightValue": 0,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        928
+      ],
+      "id": "7703d301-766d-4354-aeb8-ac61d4d16e9b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем текущий элемент и сохраняем бинарные данные\nconst item = $input.first();\n\n// Универсальный поиск размера файла (из разных мест JSON)\nlet rawSize =\n  item.json.fileSize ||\n  item.json.data?.fileSize ||\n  item.json.metadata?.fileSize ||\n  '0 B';\n\n// Нормализуем строку\nrawSize = String(rawSize).trim().replace(/\\s+/g, ' ');\n\n// Парсим и переводим в байты\nconst match = rawSize.match(/^([\\d.,]+)\\s*([KMGT]?B)$/i);\nlet bytes = 0;\n\nif (match) {\n  const number = parseFloat(match[1].replace(',', '.'));\n  const unit = (match[2] || 'B').toUpperCase();\n  const multipliers = {\n    B: 1,\n    KB: 1024,\n    MB: 1024 ** 2,\n    GB: 1024 ** 3,\n    TB: 1024 ** 4\n  };\n  bytes = Math.round(number * (multipliers[unit] || 1));\n}\n\n// Возвращаем обновлённый объект с бинарными данными\nreturn [\n  {\n    json: {\n      fileSizeRaw: rawSize,\n      fileSizeBytes: bytes,\n      hasImage: bytes > 0\n    },\n    binary: item.binary // ⚡ сохраняем изображение для последующих узлов\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        928
+      ],
+      "id": "af27ac74-79a1-4430-bd56-5ef279ebba1c",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "content": "## Upload",
+        "height": 376,
+        "width": 732,
+        "color": 4
+      },
+      "id": "09c5ce33-e940-48ab-88c2-5011a3581794",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1344,
+        848
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 10 * * 2,5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1392,
+        368
+      ],
+      "id": "2aeea3a2-0734-4cb6-9efa-872c684aaa66",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Combine Blog Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wordpress": {
+      "main": [
+        [
+          {
+            "node": "Промпт для фото",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create HTML": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cleanup HTML ": {
+      "main": [
+        [
+          {
+            "node": "Wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity Research": {
+      "main": [
+        [
+          {
+            "node": "Cleanup Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Blog Details": {
+      "main": [
+        [
+          {
+            "node": "Cleanup HTML ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Image to Wordpress": {
+      "main": [
+        [
+          {
+            "node": "Set Image on Wordpress Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Image on Wordpress Post": {
+      "main": [
+        [
+          {
+            "node": "Добавление мета данных",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Копирайтер AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Create HTML",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Wait 60sec": {
+      "main": [
+        [
+          {
+            "node": "Generate an image1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Промпт для фото": {
+      "main": [
+        [
+          {
+            "node": "Generate an image1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Копирайтер AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate an image1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Perplexity Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Копирайтер AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Upload Image to Wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 60sec",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bce3ff69-da4e-4ec2-a9f4-59875c941809",
+  "meta": {
+    "instanceId": "20dc6f2ac1a4c9afec1977cbb47e8ab6c31e8b252657bda1d2ef1566587ca8c8"
+  },
+  "id": "aOxnUw3npaAPm2W7",
+  "tags": []
+}
