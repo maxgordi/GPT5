@@ -1,0 +1,74 @@
+{
+  "comment": "Пример: голос + гитара (DI и микрофон). Пути относительно этого файла. VST3-блоки выключены (bypass): включи после mix_engine.py params и подставь реальные имена параметров.",
+  "label": "v1",
+  "out_dir": "renders",
+  "tail_seconds": 3,
+  "tracks": [
+    {
+      "name": "vocal", "role": "vocal", "file": "stems/vocal.wav", "clip_gain_db": 0,
+      "inserts": [
+        {"type": "hpf", "freq": 85, "slope_db_oct": 24},
+        {"type": "peak", "freq": 300, "gain_db": -2, "q": 1.4},
+        {"type": "comp", "threshold_db": -22, "ratio": 4, "attack_ms": 3, "release_ms": 80, "makeup_db": 3},
+        {"type": "deesser", "freq": 5500, "relative_db": -7, "ratio": 6, "range_db": 8},
+        {"type": "comp", "threshold_db": -20, "ratio": 2.5, "attack_ms": 15, "release_ms": 250, "makeup_db": 2},
+        {"type": "highshelf", "freq": 11000, "gain_db": 2},
+        {"type": "saturate", "drive_db": 6, "mix": 0.25},
+        {"type": "vst3", "bypass": true, "comment": "пример: Waves CLA-76 из WaveShell",
+         "path": "C:/Program Files/Common Files/VST3/WaveShell1-VST3 15.0_x64.vst3", "plugin_name": "CLA-76 Mono",
+         "params": {}}
+      ],
+      "fader_db": 0, "pan": 0, "sends": {"plate": -18, "delay": -24}
+    },
+    {
+      "name": "guitar_di", "role": "guitar", "file": "stems/guitar_di.wav",
+      "inserts": [
+        {"type": "ir", "bypass": true, "file": "ad810e_ir.wav", "mix": 0.8, "comment": "создать: mix_analyzer.py make-ir"},
+        {"type": "hpf", "freq": 70, "slope_db_oct": 18},
+        {"type": "peak", "freq": 1600, "gain_db": -3, "q": 2},
+        {"type": "comp", "threshold_db": -24, "ratio": 3, "attack_ms": 20, "release_ms": 150, "makeup_db": 2},
+        {"type": "highshelf", "freq": 11000, "gain_db": 2},
+        {"type": "spectral_duck", "key": "vocal", "f_lo": 1000, "f_hi": 4000, "depth_db": 3}
+      ],
+      "fader_db": -4, "pan": -0.3, "sends": {"room": -20}
+    },
+    {
+      "name": "guitar_mic", "role": "guitar", "file": "stems/guitar_mic.wav",
+      "delay_samples": 0, "invert": false,
+      "inserts": [
+        {"type": "hpf", "freq": 80, "slope_db_oct": 18},
+        {"type": "peak", "freq": 180, "gain_db": -2, "q": 1.2},
+        {"type": "comp", "threshold_db": -24, "ratio": 2.5, "attack_ms": 25, "release_ms": 150, "makeup_db": 1},
+        {"type": "spectral_duck", "key": "vocal", "f_lo": 1000, "f_hi": 4000, "depth_db": 3}
+      ],
+      "fader_db": -2, "pan": 0.3, "sends": {"room": -20}
+    }
+  ],
+  "buses": [
+    {"name": "plate", "return_db": 0, "inserts": [
+      {"type": "reverb", "room_size": 0.55, "damping": 0.6},
+      {"type": "hpf", "freq": 300, "slope_db_oct": 12},
+      {"type": "lpf", "freq": 8000, "slope_db_oct": 12},
+      {"type": "vst3", "bypass": true, "comment": "заменить встроенный reverb на Valhalla Plate/VintageVerb",
+       "path": "C:/Program Files/Common Files/VST3/ValhallaVintageVerb.vst3", "params": {}}
+    ]},
+    {"name": "room", "return_db": -4, "inserts": [
+      {"type": "reverb", "room_size": 0.25, "damping": 0.7},
+      {"type": "hpf", "freq": 200, "slope_db_oct": 12}
+    ]},
+    {"name": "delay", "return_db": -2, "inserts": [
+      {"type": "delay", "bpm": 80, "note": "1/8d", "feedback": 0.25},
+      {"type": "hpf", "freq": 400, "slope_db_oct": 12},
+      {"type": "lpf", "freq": 5000, "slope_db_oct": 12}
+    ]}
+  ],
+  "master": {"inserts": [
+    {"type": "comp", "threshold_db": -18, "ratio": 2, "attack_ms": 30, "release_ms": 200}
+  ]},
+  "analysis": {
+    "ref": [],
+    "ref_vocal": [],
+    "ref_guitar": [],
+    "target_lufs": -14
+  }
+}
