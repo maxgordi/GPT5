@@ -73,7 +73,7 @@ font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.
 .kv-cell h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(22px,1.5vw,28px);line-height:.95;letter-spacing:.02em;color:var(--ink)}
 .kv-cell h3 a:after{content:'';position:absolute;inset:0}
 .kv-cell:hover{background:#fff}.kv-cell:hover img{transform:scale(1.05)}
-.kv-cell:hover h4{color:#000;text-decoration:underline;text-decoration-color:var(--or);text-decoration-thickness:3px;text-underline-offset:4px}
+.kv-cell:hover h3{color:#000;text-decoration:underline;text-decoration-color:var(--or);text-decoration-thickness:3px;text-underline-offset:4px}
 .kv-cell:focus-within{outline:3px solid var(--or);outline-offset:-3px}
 /* stock + steps */
 .kv-split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,96px);align-items:start}
@@ -230,7 +230,7 @@ docs = ''.join(f'<a href="{U}{f}.webp">{img(U+f+"-400x516.webp", a, 400, 516)}</
 def yt(v, t, l): return f'<button type="button" class="kv-yt" data-yt="{v}" aria-label="Відтворити відео: {e(t)}" style="background-image:url(https://i.ytimg.com/vi/{v}/hqdefault.jpg)"><i>{l}</i></button>'
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500&family=Onest:wght@400;500;600&family=Sofia+Sans+Extra+Condensed:wght@800;900&display=swap">')
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Sofia+Sans+Extra+Condensed:wght@800;900&display=swap">')
 SPRAY = '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="kvspray" x="-2%" y="-2%" width="104%" height="104%"><feGaussianBlur in="SourceGraphic" stdDeviation="1.1" result="b"/><feComponentTransfer in="b" result="h"><feFuncA type="linear" slope=".45"/></feComponentTransfer><feMerge><feMergeNode in="h"/><feMergeNode in="SourceGraphic"/></feMerge></filter></svg>'
 
 JS = r"""<script>(function(){document.documentElement.classList.add('kv-js');

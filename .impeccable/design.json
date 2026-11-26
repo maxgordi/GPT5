@@ -1,0 +1,485 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-26T18:11:54+00:00",
+  "title": "Design System: SCMA-KVK",
+  "extensions": {
+    "colorMeta": {
+      "primer-steel": {
+        "role": "neutral",
+        "displayName": "Primer Steel",
+        "canonical": "#16181b",
+        "tonalRamp": [
+          "#090b0e",
+          "#232528",
+          "#404246",
+          "#5f6165",
+          "#808286",
+          "#a2a5a9",
+          "#c6c9ce",
+          "#eceff3"
+        ]
+      },
+      "steel-raised": {
+        "role": "neutral",
+        "displayName": "Raised Steel",
+        "canonical": "#25292d",
+        "tonalRamp": [
+          "#080c0f",
+          "#222629",
+          "#3e4347",
+          "#5d6266",
+          "#7e8388",
+          "#a1a6ab",
+          "#c5cacf",
+          "#eaeff5"
+        ]
+      },
+      "plate-seam": {
+        "role": "neutral",
+        "displayName": "Plate Seam",
+        "canonical": "#33383d",
+        "tonalRamp": [
+          "#080c10",
+          "#21262a",
+          "#3d4348",
+          "#5c6267",
+          "#7d8389",
+          "#a0a6ac",
+          "#c4cad0",
+          "#e9eff6"
+        ]
+      },
+      "stencil-white": {
+        "role": "neutral",
+        "displayName": "Stencil White",
+        "canonical": "#ecebe5",
+        "tonalRamp": [
+          "#0c0b08",
+          "#262521",
+          "#43423d",
+          "#62615c",
+          "#83827d",
+          "#a6a59f",
+          "#cac9c3",
+          "#f0efe9"
+        ]
+      },
+      "weathered-paint": {
+        "role": "neutral",
+        "displayName": "Weathered Paint",
+        "canonical": "#b4b8bc",
+        "tonalRamp": [
+          "#090b0e",
+          "#222528",
+          "#3f4246",
+          "#5e6265",
+          "#7f8386",
+          "#a2a5a9",
+          "#c6cace",
+          "#ebeff3"
+        ]
+      },
+      "guard-orange": {
+        "role": "primary",
+        "displayName": "Guard Orange",
+        "canonical": "#E58D00",
+        "tonalRamp": [
+          "#160700",
+          "#3b1c00",
+          "#643400",
+          "#914e00",
+          "#bf6b00",
+          "#da9444",
+          "#f4bd84",
+          "#ffe7c0"
+        ]
+      },
+      "guard-orange-hot": {
+        "role": "primary",
+        "displayName": "Hot Guard Orange",
+        "canonical": "#ffa31a",
+        "tonalRamp": [
+          "#160700",
+          "#3b1c00",
+          "#653400",
+          "#924e00",
+          "#c06a00",
+          "#db943a",
+          "#f5bd7f",
+          "#ffe7bd"
+        ]
+      },
+      "foundation-concrete": {
+        "role": "neutral",
+        "displayName": "Foundation Concrete",
+        "canonical": "#c2bfb8",
+        "tonalRamp": [
+          "#0d0b07",
+          "#27251f",
+          "#44423c",
+          "#64615b",
+          "#85827b",
+          "#a8a59e",
+          "#ccc9c2",
+          "#f1eee7"
+        ]
+      },
+      "plate-cream": {
+        "role": "neutral",
+        "displayName": "Plate Cream",
+        "canonical": "#e2dfd8",
+        "tonalRamp": [
+          "#0d0b07",
+          "#272520",
+          "#44423c",
+          "#64615b",
+          "#85827c",
+          "#a8a59e",
+          "#ccc9c2",
+          "#f1eee7"
+        ]
+      },
+      "marking-ink": {
+        "role": "neutral",
+        "displayName": "Marking Ink",
+        "canonical": "#141618",
+        "tonalRamp": [
+          "#090b0d",
+          "#232527",
+          "#404245",
+          "#5f6164",
+          "#808385",
+          "#a3a5a8",
+          "#c7c9cc",
+          "#eceff2"
+        ]
+      },
+      "ink-dim": {
+        "role": "neutral",
+        "displayName": "Ink Dim",
+        "canonical": "#3e4246",
+        "tonalRamp": [
+          "#080c0f",
+          "#222529",
+          "#3e4246",
+          "#5d6266",
+          "#7e8387",
+          "#a1a6aa",
+          "#c5cacf",
+          "#eaeff4"
+        ]
+      },
+      "rule-line": {
+        "role": "neutral",
+        "displayName": "Rule Line",
+        "canonical": "#4a4f55",
+        "tonalRamp": [
+          "#080b10",
+          "#21252b",
+          "#3e4248",
+          "#5d6268",
+          "#7d8389",
+          "#a0a6ac",
+          "#c4cad1",
+          "#e9eff6"
+        ]
+      },
+      "bolt-head": {
+        "role": "neutral",
+        "displayName": "Bolt Head",
+        "canonical": "#5b6167",
+        "tonalRamp": [
+          "#070c10",
+          "#21262b",
+          "#3d4348",
+          "#5c6268",
+          "#7d8389",
+          "#9fa6ac",
+          "#c3cad1",
+          "#e8eff6"
+        ]
+      },
+      "amber-deep": {
+        "role": "primary",
+        "displayName": "Deep Amber",
+        "canonical": "#9a5d00",
+        "tonalRamp": [
+          "#130801",
+          "#361f05",
+          "#5c390e",
+          "#865518",
+          "#b17328",
+          "#cd9963",
+          "#eac197",
+          "#ffe9cc"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The H1 only; two painted lines, second in guard orange."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "One giant painted figure per section (−25%, 50+)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2s, uppercase, max 16ch."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "H3s, product names, step titles."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Values on the data plate, tabular numerals."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "All actions."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Paragraph under a headline, max 56ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Data-plate labels, hatch captions, footer link row; beside a value, never above a headline."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hatch-drop",
+        "value": "inset 0 0 0 1px #000, 0 30px 60px rgba(0,0,0,.45)",
+        "purpose": "Hero bolted hatch."
+      },
+      {
+        "name": "framed-photo",
+        "value": "0 24px 48px rgba(0,0,0,.4)",
+        "purpose": "Steel-framed photos on steel."
+      },
+      {
+        "name": "orange-plate",
+        "value": "0 6px 16px rgba(0,0,0,.28)",
+        "purpose": "Primary button at rest."
+      },
+      {
+        "name": "orange-plate-hover",
+        "value": "0 10px 24px rgba(0,0,0,.34)",
+        "purpose": "Primary button hover."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-spray",
+        "value": "cubic-bezier(.45,.05,.25,1)",
+        "purpose": "H1 mask reveal, 0.95s, brand line delayed 0.38s."
+      },
+      {
+        "name": "ease-settle",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Hatch clip-path open (0.8s, 0.25s delay), photo settle, data-row stamp (0.28s, 0.1s stagger from 0.85s), actions rise, steps rise (0.09s stagger)."
+      },
+      {
+        "name": "ease-stamp",
+        "value": "cubic-bezier(.2,1.2,.4,1)",
+        "purpose": "The −25% numeral stamp from scale 1.12 rotate −2deg, 0.42s."
+      },
+      {
+        "name": "ease-hover-zoom",
+        "value": "cubic-bezier(.2,.7,.2,1)",
+        "purpose": "Image zoom to 1.05 on hover, 0.6s."
+      },
+      {
+        "name": "button-press",
+        "value": "0.12s",
+        "purpose": "Button moves 1px down on active; colour 0.15s."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "opacity 0.3s ease-out, no delay",
+        "purpose": "Under prefers-reduced-motion all masks, clips, transforms and staggers are removed; elements only fade; hover zooms are off."
+      },
+      {
+        "name": "no-js",
+        "value": "gated on .kv-js",
+        "purpose": "All motion start states apply only when JS adds kv-js; without JS content renders static."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "560px"
+      },
+      {
+        "name": "stack",
+        "value": "860px"
+      },
+      {
+        "name": "divi-header",
+        "value": "980px"
+      },
+      {
+        "name": "medium",
+        "value": "1100px"
+      }
+    ],
+    "grain": {
+      "value": "fractalNoise SVG, baseFrequency .85, alpha .07, 220px tile",
+      "purpose": "Painted grain on steel, concrete and orange grounds; steel adds a centre plate seam."
+    },
+    "spray": {
+      "value": "feGaussianBlur 1.1 at 45% alpha merged under SourceGraphic",
+      "purpose": "Over-spray halo on marking-face headlines and numerals; glyphs stay whole (no stencil bridges)."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Guard-orange painted plate for the main action (call, order).",
+      "html": "<div class=\"ds-steel\"><a class=\"ds-btn\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z\"/></svg>Подзвонити +38 (067) 632-67-98</a></div>",
+      "css": ".ds-steel{background:#16181b;padding:32px} .ds-btn{display:inline-flex;align-items:center;gap:.6em;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:.03em;padding:.62em 1.1em .58em;border-radius:0;cursor:pointer;text-decoration:none;transition:background .15s,color .15s,box-shadow .2s,transform .12s;border:3px solid #E58D00;background:#E58D00;color:#141618;box-shadow:0 6px 16px rgba(0,0,0,.28)} .ds-btn:hover{background:#ffa31a;border-color:#ffa31a;box-shadow:0 10px 24px rgba(0,0,0,.34)} .ds-btn:active{transform:translateY(1px)} .ds-btn:focus-visible{outline:3px solid #E58D00;outline-offset:4px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action: stencil-white outline on steel, inverts on hover.",
+      "html": "<div class=\"ds-steel\"><a class=\"ds-btn-ln\" href=\"#\">Отримати консультацію</a></div>",
+      "css": ".ds-steel{background:#16181b;padding:32px} .ds-btn-ln{display:inline-flex;align-items:center;gap:.6em;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:.03em;padding:.62em 1.1em .58em;border-radius:0;cursor:pointer;text-decoration:none;transition:background .15s,color .15s,box-shadow .2s,transform .12s;border:3px solid #ecebe5;background:transparent;color:#ecebe5} .ds-btn-ln:hover{background:#ecebe5;color:#141618} .ds-btn-ln:active{transform:translateY(1px)} .ds-btn-ln:focus-visible{outline:3px solid #E58D00;outline-offset:4px}"
+    },
+    {
+      "name": "Button on Orange",
+      "kind": "button",
+      "refersTo": "button-on-orange",
+      "description": "On the orange ground the primary becomes an ink plate; the outline goes ink.",
+      "html": "<div class=\"ds-or\"><a class=\"ds-bo\" href=\"#\">Відкрити наказ (PDF)</a> <a class=\"ds-bo ds-ln\" href=\"#\">Уточнити умови</a></div>",
+      "css": ".ds-or{background:#E58D00;padding:32px;display:flex;gap:14px;flex-wrap:wrap} .ds-bo{display:inline-flex;align-items:center;gap:.6em;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:.03em;padding:.62em 1.1em .58em;border-radius:0;cursor:pointer;text-decoration:none;transition:background .15s,color .15s,box-shadow .2s,transform .12s;border:3px solid #141618;background:#141618;color:#ecebe5} .ds-bo.ds-ln{background:transparent;color:#141618} .ds-bo.ds-ln:hover{background:#141618;color:#ecebe5} .ds-bo:focus-visible{outline:3px solid #141618;outline-offset:4px}"
+    },
+    {
+      "name": "Guard Row",
+      "kind": "custom",
+      "refersTo": "guard-row",
+      "description": "Orange trapezoid wheel-guard row; the only divider between sections.",
+      "html": "<div class=\"ds-g1\"></div><div class=\"ds-guard\" role=\"presentation\"></div><div class=\"ds-g2\"></div>",
+      "css": ".ds-g1{height:60px;background:#16181b} .ds-g2{height:60px;background:#c2bfb8} .ds-guard{height:22px;background:#141618 url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='22' viewBox='0 0 120 22'%3E%3Cpath d='M8 22 L20 2 H96 L108 22Z' fill='%23E58D00'/%3E%3Cpath d='M20 2 H96 L98 5 H18Z' fill='%23ffb23a' opacity='.55'/%3E%3C/svg%3E\") repeat-x left center/120px 22px}"
+    },
+    {
+      "name": "Data Plate",
+      "kind": "custom",
+      "refersTo": "data-plate-row",
+      "description": "Wagon data panel: ruled label/value rows; one value in guard orange.",
+      "html": "<div class=\"ds-steel\"><dl class=\"ds-data\"><div><dt>Довжина платформ</dt><dd>6–22 м</dd></div><div><dt>Вантажопідйомність</dt><dd>30–100 т</dd></div><div><dt>Монтаж по всій Україні</dt><dd>від 3 днів</dd></div><div><dt>Держкомпенсація на ваги</dt><dd><b>−25%</b></dd></div></dl></div>",
+      "css": ".ds-steel{background:#16181b;padding:32px} .ds-data{margin:0;border-top:2px solid #ecebe5;max-width:640px} .ds-data div{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:16px;padding:.34em 0;border-bottom:1px solid #4a4f55} .ds-data dt{font-family:'Onest',system-ui,sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#b4b8bc} .ds-data dd{margin:0;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:28px;letter-spacing:.02em;text-transform:uppercase;font-variant-numeric:tabular-nums;color:#ecebe5} .ds-data dd b{color:#E58D00;font-weight:900}"
+    },
+    {
+      "name": "Bolted Hatch",
+      "kind": "card",
+      "refersTo": "bolted-hatch",
+      "description": "Raised-steel frame with corner bolts housing the hero photo, caption tab bottom-left.",
+      "html": "<div class=\"ds-steel\"><figure class=\"ds-hatch\"><div class=\"ds-ph\"></div><figcaption>Платформа ТИТАН на об’єкті</figcaption></figure></div>",
+      "css": ".ds-steel{background:#16181b;padding:40px} .ds-hatch{position:relative;margin:0;width:260px;aspect-ratio:4/5;border:10px solid #25292d;outline:1px solid #33383d;box-shadow:inset 0 0 0 1px #000,0 30px 60px rgba(0,0,0,.45);background:#000} .ds-ph{width:100%;height:100%;background:linear-gradient(180deg,#3a3f52,#b46a2a 70%,#2a2a2a)} .ds-hatch:before{content:'';position:absolute;inset:-10px;pointer-events:none;background:radial-gradient(circle at 10px 10px,#5b6167 0 3px,#202326 3.5px 5px,transparent 5.5px),radial-gradient(circle at calc(100% - 10px) 10px,#5b6167 0 3px,#202326 3.5px 5px,transparent 5.5px),radial-gradient(circle at 10px calc(100% - 10px),#5b6167 0 3px,#202326 3.5px 5px,transparent 5.5px),radial-gradient(circle at calc(100% - 10px) calc(100% - 10px),#5b6167 0 3px,#202326 3.5px 5px,transparent 5.5px)} .ds-hatch figcaption{position:absolute;left:0;bottom:0;background:#16181b;color:#b4b8bc;font-family:'Onest',system-ui,sans-serif;font-weight:600;font-size:12px;letter-spacing:.1em;padding:8px 12px;text-transform:uppercase}"
+    },
+    {
+      "name": "Plate Grid Cell",
+      "kind": "card",
+      "refersTo": "plate-cell",
+      "description": "Product cells as one plate split by 2px ink seams; whole cell links.",
+      "html": "<div class=\"ds-conc\"><div class=\"ds-grid\"><div class=\"ds-cell\"><div class=\"ds-im\"></div><div class=\"ds-bd\"><h3><a href=\"#\">ТИТАН POWER LINE</a></h3><span>Металева платформа</span></div></div><div class=\"ds-cell\"><div class=\"ds-im\"></div><div class=\"ds-bd\"><h3><a href=\"#\">ТИТАН BEST LINE</a></h3><span>Металева платформа</span></div></div></div></div>",
+      "css": ".ds-conc{background:#c2bfb8;padding:32px} .ds-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:#141618;border:2px solid #141618} .ds-cell{position:relative;background:#e2dfd8;transition:background .2s} .ds-im{aspect-ratio:16/10;background:#cfccc4} .ds-bd{padding:14px 16px 18px;display:flex;flex-direction:column;gap:8px} .ds-bd h3{margin:0;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;text-transform:uppercase;font-size:26px;line-height:.95;letter-spacing:.02em} .ds-bd h3 a{color:#141618;text-decoration:none} .ds-bd h3 a:after{content:'';position:absolute;inset:0} .ds-bd span{font-family:'Onest',system-ui,sans-serif;font-size:14px;color:#4a4e52} .ds-cell:hover{background:#fff} .ds-cell:focus-within{outline:3px solid #E58D00;outline-offset:-3px}"
+    },
+    {
+      "name": "Ruled Steps",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Process steps hanging from a 2px rule with large painted orange counters.",
+      "html": "<div class=\"ds-steel\"><ol class=\"ds-steps\"><li><b>Підбір моделі</b><span>Під завдання вашого підприємства</span></li><li><b>Виробництво</b><span>Власний цех, якісна сталь</span></li><li><b>Монтаж</b><span>Встановлюємо на об’єкті</span></li></ol></div>",
+      "css": ".ds-steel{background:#16181b;padding:32px;color:#ecebe5} .ds-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid #ecebe5;counter-reset:s} .ds-steps li{padding:18px 18px 0 0;counter-increment:s;border-right:1px solid #4a4f55} .ds-steps li+li{padding-left:18px} .ds-steps li:last-child{border-right:0} .ds-steps li:before{content:counter(s);display:block;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:56px;line-height:.8;color:#E58D00;margin-bottom:12px} .ds-steps b{display:block;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:.02em;line-height:1;margin-bottom:8px} .ds-steps span{display:block;font-family:'Onest',system-ui,sans-serif;font-size:15px;color:#b4b8bc;line-height:1.5}"
+    },
+    {
+      "name": "Underline Link",
+      "kind": "nav",
+      "refersTo": "underline-link",
+      "description": "Tertiary link over a 3px guard-orange rule.",
+      "html": "<div class=\"ds-steel\"><a class=\"ds-ul\" href=\"#\">Усі новини</a></div><div class=\"ds-conc\"><a class=\"ds-ul ds-ink\" href=\"#\">Залишити заявку на партнерство</a></div>",
+      "css": ".ds-steel{background:#16181b;padding:24px} .ds-conc{background:#c2bfb8;padding:24px} .ds-ul{font-family:'Onest',system-ui,sans-serif;font-weight:600;font-size:17px;color:#ecebe5;text-decoration:none;border-bottom:3px solid #E58D00;padding-bottom:2px} .ds-ul:hover{color:#E58D00} .ds-ul.ds-ink{color:#141618} .ds-ul.ds-ink:hover{color:#9a5d00} .ds-ul:focus-visible{outline:3px solid #E58D00;outline-offset:4px}"
+    },
+    {
+      "name": "Contact Form Field",
+      "kind": "input",
+      "refersTo": "contact-form-panel",
+      "description": "Square white field with 2px ink border inside the orange-bordered panel.",
+      "html": "<div class=\"ds-panel\"><input class=\"ds-in\" placeholder=\"Ім’я\"><input class=\"ds-in\" placeholder=\"Телефон\"></div>",
+      "css": ".ds-panel{background:#ecebe5;border:4px solid #E58D00;padding:28px;display:grid;gap:12px} .ds-in{border:2px solid #141618;background:#fff;border-radius:0;color:#141618;font-family:'Onest',system-ui,sans-serif;font-size:16px;padding:12px 14px} .ds-in:focus{border-color:#E58D00;outline:none}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Painted Weighbridge Flank",
+    "overview": "**Creative North Star: \"The Painted Weighbridge Flank\"**\n\nThe page is the side of a steel truck scale: graphite primer plate with a centre seam and grain, facts painted on it in a condensed heavy marking face, and the orange wheel-guard row bolted along every edge where one section meets the next. Light sections are the concrete foundation the platform sits on. Nothing floats, nothing is rounded, nothing is decorative that is not also a material of the trade: seams, bolt heads, inspection hatches, painted capacity markings.\n\nDensity is industrial and direct. Sections alternate between primer steel and foundation concrete, joined by the guard row, with one full orange section reserved for the state compensation. Facts are set as a wagon data plate (label left, painted value right) rather than as stat tiles or cards. Photographs sit in bolted hatches or thick steel frames, never in soft cards. Grids of products, logos, photos and documents are a single plate divided by 2px ink seams, not separated cards.\n\nThe marking face is painted plain, without stencil bridges: the owner chose legibility first. Over-spray is suggested only by a faint halo filter under the crisp letterform, never by breaking the glyphs.",
+    "keyCharacteristics": [
+      "Graphite primer steel and foundation concrete grounds, both with a fine painted grain.",
+      "Orange trapezoid wheel-guard row as the only section divider.",
+      "Condensed 800-900 uppercase marking face for headlines, values, numerals and buttons; Onest for reading.",
+      "Square corners everywhere (0px radius).",
+      "Plates divided by 2px ink seams; data set as ruled label/value rows.",
+      "One choreographed hero sequence; everything else is still or nearly still."
+    ],
+    "rules": [
+      {
+        "name": "The One Paint Rule",
+        "body": "Guard orange is the only chromatic colour. It marks the action, the brand line, and the single most valuable fact on a ground; it never tints a surface except the one compensation section.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Grounds Rule",
+        "body": "Every section is either primer steel or foundation concrete (the compensation section is the sole orange ground), and consecutive grounds are joined by the guard row.",
+        "section": "colors"
+      },
+      {
+        "name": "The Legible Marking Rule",
+        "body": "The marking face is painted whole: no stencil bridges, no distressed glyphs. Over-spray is a soft halo (blur 1.1px at 45% alpha) merged under the crisp letter, applied to marking-class headlines and numerals only.",
+        "section": "typography"
+      },
+      {
+        "name": "The Numbers Are Painted Rule",
+        "body": "Measurements and capacities (6–22 м, 30–100 т, від 3 днів, −25%, 40+, 26) are set in the marking face, not in body text and not in a monospace.",
+        "section": "typography"
+      },
+      {
+        "name": "The Bolted, Not Floating Rule",
+        "body": "A raised object is framed in raised steel (6-10px) with a 1px seam outline; shadows are soft and downward. No hard offset shadows, no glows.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Reduced Motion Rule",
+        "body": "Under prefers-reduced-motion every mask, clip, scale, translate and stagger is removed; elements only fade (0.3s, no delay) and hover zooms are off.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do join every pair of sections with the guard row and nothing else.",
+      "Do set every measurement, capacity and key figure in the marking face, painted plain and legible.",
+      "Do present facts as a data plate (label left, value right, ruled rows), with at most one value painted guard orange.",
+      "Do build grids of items as one plate with 2px ink seams.",
+      "Do house hero or key photos in raised-steel frames; the hero photo in the bolted hatch.",
+      "Do keep every corner square (0px).",
+      "Do keep all content readable without JS and honour reduced motion by collapsing to fades."
+    ],
+    "donts": [
+      "Don't add stencil bridges or distressed glyphs to the marking face; legibility comes first.",
+      "Don't introduce a second accent colour or blue; guard orange is the only paint.",
+      "Don't separate items into rounded or floating cards; they are cells of one plate.",
+      "Don't use hard offset shadows or glows; raised objects cast soft downward shadows only.",
+      "Don't put small uppercase labels above headlines; labels belong beside the value they name.",
+      "Don't use more than one giant numeral per section."
+    ]
+  }
+}
