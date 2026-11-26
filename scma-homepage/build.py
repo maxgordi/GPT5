@@ -167,7 +167,7 @@ font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.
 .kv-js .kv-hero.go .paint{-webkit-mask-position:0 0;mask-position:0 0}
 .kv-js .kv-hatch{clip-path:inset(0 0 100% 0);transition:clip-path .8s cubic-bezier(.16,1,.3,1) .25s}
 .kv-js .kv-hero.go .kv-hatch{clip-path:inset(-20px -20px -20px -20px)}
-.kv-js .kv-hatch img{transform:scale(1.08);transition:transform 1.6s cubic-bezier(.16,1,.3,1) .25s}
+.kv-js .kv-hatch img{transform:scale(1.05);transition:transform .85s cubic-bezier(.16,1,.3,1) .25s}
 .kv-js .kv-hero.go .kv-hatch img{transform:none}
 .kv-js .kv-hero .sub{opacity:0;transition:opacity .5s ease-out .7s}
 .kv-js .kv-hero.go .sub{opacity:1}
@@ -179,11 +179,12 @@ font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.
 .kv-js .kv-steps li{opacity:0;transform:translateY(12px);transition:opacity .35s ease-out,transform .45s cubic-bezier(.16,1,.3,1)}
 .kv-js .kv-steps.in li{opacity:1;transform:none}
 .kv-js .kv-steps.in li:nth-child(2){transition-delay:.09s}.kv-js .kv-steps.in li:nth-child(3){transition-delay:.18s}.kv-js .kv-steps.in li:nth-child(4){transition-delay:.27s}.kv-js .kv-steps.in li:nth-child(5){transition-delay:.36s}
-.kv-js .kv-stamp{opacity:0;transform:scale(1.12) rotate(-2deg);filter:url(#kvspray) blur(6px)}
-.kv-js .kv-stamp.in{opacity:1;transform:none;filter:url(#kvspray) blur(0px);transition:opacity .18s ease-out,transform .42s cubic-bezier(.2,1.2,.4,1),filter .3s ease-out}
+.kv-js .kv-stamp{opacity:0;transform:scale(1.12) rotate(-2deg)}
+.kv-js .kv-stamp.in{opacity:1;transform:none;transition:opacity .18s ease-out,transform .42s cubic-bezier(.2,1.2,.4,1)}
 .kv-b{transition:background .15s,color .15s,box-shadow .2s,transform .12s}.kv-b:active{transform:translateY(1px)}
-@media (prefers-reduced-motion:reduce){.kv-js .kv-hero .paint{-webkit-mask:none;mask:none}.kv-js .kv-hatch{clip-path:none}.kv-js .kv-hatch img,.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-steps li,.kv-js .kv-stamp{transform:none}.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-hero .sub,.kv-js .kv-steps li,.kv-js .kv-stamp,.kv-js .kv-stamp.in{transition:opacity .3s ease-out;transition-delay:0s!important}.kv-js .kv-stamp,.kv-js .kv-stamp.in{filter:url(#kvspray)}.kv-cell img,.kv-gal img{transition:none}}
-@media (min-width:981px){.kv-hero .kv-w{padding-top:calc(80px + clamp(20px,2vw,36px))}}
+@media (max-width:860px){.kv-js .kv-hatch{clip-path:none;opacity:0;transition:opacity .45s ease-out 1s}.kv-js .kv-hero.go .kv-hatch{opacity:1}.kv-js .kv-hatch img{transform:none;transition:none}}
+@media (prefers-reduced-motion:reduce){.kv-js .kv-hero .paint{-webkit-mask:none;mask:none}.kv-js .kv-hatch{clip-path:none}.kv-js .kv-hatch img,.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-steps li,.kv-js .kv-stamp{transform:none}.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-hero .sub,.kv-js .kv-steps li,.kv-js .kv-stamp,.kv-js .kv-stamp.in{transition:opacity .3s ease-out;transition-delay:0s!important}.kv-cell img,.kv-gal img{transition:none}}
+@media (min-width:981px){.kv-hero .kv-w{padding-top:calc(80px + clamp(20px,2vw,36px))}}@media (max-width:980px){.kv-hero .kv-w{padding-top:104px}}
 @media (max-width:1100px){.kv-grid{grid-template-columns:repeat(3,1fr)}.kv-logos{grid-template-columns:repeat(4,1fr)}.kv-why{grid-template-columns:1fr 1fr}.kv-why div{padding:22px 22px 22px 0!important;border-right:0;border-bottom:1px solid #4a4f55}.kv-steps{grid-template-columns:1fr 1fr 1fr}}
 @media (max-width:860px){.kv-hero .kv-w{grid-template-columns:1fr;min-height:0}.kv-hatch{aspect-ratio:12/5;max-height:none;border-width:6px}.kv-hero .sub{margin-top:.5em}.kv-hero .kv-w{padding-bottom:16px}.kv-hero h1 .l1{white-space:normal}.kv-split,.kv-svc,.kv-hist .kv-w,.kv-comp .kv-w,.kv-end .kv-w,.kv-cat-head{grid-template-columns:1fr}.kv-svc .ph{min-height:300px}.kv-steps{grid-template-columns:1fr;border-top:0}.kv-steps li{border-right:0;border-top:1px solid #4a4f55;display:grid;grid-template-columns:56px 1fr;padding:16px 0!important}.kv-steps li:before{grid-row:span 2;font-size:44px}.kv-gal{grid-template-columns:1fr 1fr}.kv-gal a:nth-child(n){grid-column:span 1;grid-row:span 1}.kv-gal a:nth-child(1){grid-column:span 2;grid-row:span 2}.kv-docs{grid-template-columns:repeat(3,1fr)}.kv-vids{grid-template-columns:1fr}.kv-news .et_pb_ajax_pagination_container{grid-template-columns:1fr 1fr}.kv-cross span{font-size:34vw}}
 @media (max-width:560px){.kv-grid{grid-template-columns:1fr 1fr}.kv-logos{grid-template-columns:repeat(3,1fr)}.kv-why{grid-template-columns:1fr}.kv-docs{grid-template-columns:1fr 1fr}.kv-news .et_pb_ajax_pagination_container{grid-template-columns:1fr}.kv-b{width:100%;justify-content:center}.kv-cell h3{font-size:20px}.kv-cell .bd{padding:10px 12px 14px}}
@@ -233,7 +234,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
 SPRAY = '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="kvspray" x="-2%" y="-2%" width="104%" height="104%"><feGaussianBlur in="SourceGraphic" stdDeviation="1.1" result="b"/><feComponentTransfer in="b" result="h"><feFuncA type="linear" slope=".45"/></feComponentTransfer><feMerge><feMergeNode in="h"/><feMergeNode in="SourceGraphic"/></feMerge></filter></svg>'
 
 JS = r"""<script>(function(){document.documentElement.classList.add('kv-js');
-var hero=document.querySelector('.kv-hero');if(hero){requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('go');});});}
+var hero=document.querySelector('.kv-hero');if(hero){var started=false;var go=function(){if(started)return;started=true;requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('go');});});};if(document.fonts&&document.fonts.load){document.fonts.load('900 64px "Sofia Sans Extra Condensed"').then(function(){return document.fonts.load('800 32px "Sofia Sans Extra Condensed"');}).then(go,go);}setTimeout(go,300);}
 var els=document.querySelectorAll('.kv-steps,.kv-stamp');
 if(!('IntersectionObserver' in window)){els.forEach(function(x){x.classList.add('in');});}
 else{var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{rootMargin:'0px 0px -15% 0px'});els.forEach(function(x){io.observe(x);});}
