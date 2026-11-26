@@ -11,7 +11,7 @@ GUARD = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12
 NOISE = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
 
 CSS = r"""
-.kv{--steel:#1c1f22;--steel2:#25292d;--seam:#33383d;--paint:#ecebe5;--dim:#b4b8bc;--or:#E58D00;--or2:#ffa31a;--conc:#d3d0c9;--ink:#141618;--inkdim:#3e4246;
+.kv{--steel:#16181b;--steel2:#25292d;--seam:#33383d;--paint:#ecebe5;--dim:#b4b8bc;--or:#E58D00;--or2:#ffa31a;--conc:#c2bfb8;--ink:#141618;--inkdim:#3e4246;
 --disp:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;--body:'Onest',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--mono:'Martian Mono',ui-monospace,monospace;
 font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.6;color:var(--paint);background:var(--steel)}
 .kv *{box-sizing:border-box}.kv p{margin:0 0 1em;padding:0}.kv a{color:inherit;text-decoration:none}
@@ -26,9 +26,7 @@ font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.
 .kv-sec{padding:clamp(72px,8vw,136px) 0;position:relative}
 .kv-guard{height:22px;background:var(--ink) url("GUARD") repeat-x left center/120px 22px}
 /* stencil marking */
-.kv-st{font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:.9;--lh:.9em;
--webkit-mask:repeating-linear-gradient(180deg,#000 0 calc(var(--lh)*.36),transparent calc(var(--lh)*.36) calc(var(--lh)*.4),#000 calc(var(--lh)*.4) calc(var(--lh)*.7),transparent calc(var(--lh)*.7) calc(var(--lh)*.735),#000 calc(var(--lh)*.735) var(--lh));
-mask:repeating-linear-gradient(180deg,#000 0 calc(var(--lh)*.36),transparent calc(var(--lh)*.36) calc(var(--lh)*.4),#000 calc(var(--lh)*.4) calc(var(--lh)*.7),transparent calc(var(--lh)*.7) calc(var(--lh)*.735),#000 calc(var(--lh)*.735) var(--lh));filter:url(#kvspray)}
+.kv-st{font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:.92;filter:url(#kvspray)}
 .kv h2.kv-st{font-size:clamp(44px,5.4vw,96px);margin-bottom:.35em;max-width:16ch;text-wrap:balance}
 .kv h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(24px,1.8vw,32px);letter-spacing:.02em;line-height:1}
 .kv-lead{font-size:clamp(18px,1.15vw,22px);max-width:56ch;color:var(--dim)}
@@ -48,22 +46,22 @@ mask:repeating-linear-gradient(180deg,#000 0 calc(var(--lh)*.36),transparent cal
 .kv-ul:hover{color:var(--or)!important}
 .kv-conc .kv-ul:hover{color:#9a5d00!important}
 /* hero */
-.kv-hero .kv-w{display:grid;grid-template-columns:1.38fr 1fr;gap:clamp(28px,4vw,72px);align-items:center;min-height:calc(100vh - 102px);padding:clamp(48px,5vw,80px) 0}
-.kv-hero h1{font-size:clamp(58px,8.4vw,156px);color:var(--paint)}
+.kv-hero .kv-w{display:grid;grid-template-columns:1.7fr 1fr;gap:clamp(28px,3.4vw,64px);align-items:center;padding:clamp(28px,3vw,48px) 0 clamp(24px,2.4vw,36px)}
+.kv-hero h1{font-size:clamp(46px,5.9vw,116px);color:var(--paint)}.kv-hero h1 .l1{display:block;white-space:nowrap}
 .kv-hero h1 .o{color:var(--or);display:block}
-.kv-hero .sub{font-family:var(--body);font-size:clamp(18px,1.3vw,24px);color:var(--dim);margin:.9em 0 0;max-width:36ch;text-transform:none;filter:none}
-.kv-data{margin:clamp(22px,2.4vw,36px) 0 0;border-top:2px solid var(--paint);max-width:640px}
-.kv-data div{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:16px;padding:.5em 0;border-bottom:1px solid #4a4f55}
-.kv-data dt{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin:0}
-.kv-data dd{margin:0;text-transform:uppercase;font-family:var(--disp);font-weight:800;font-size:clamp(24px,2vw,36px);letter-spacing:.02em;color:var(--paint)}
+.kv-hero .sub{font-family:var(--body);font-size:clamp(16px,1.05vw,19px);color:var(--dim);margin:.8em 0 0;max-width:52ch;text-transform:none;filter:none}
+.kv-data{margin:clamp(16px,1.6vw,26px) 0 0;border-top:2px solid var(--paint);max-width:640px}
+.kv-data div{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:16px;padding:.34em 0;border-bottom:1px solid #4a4f55}
+.kv-data dt{font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:0}
+.kv-data dd{margin:0;text-transform:uppercase;font-variant-numeric:tabular-nums;font-family:var(--disp);font-weight:800;font-size:clamp(22px,1.7vw,32px);letter-spacing:.02em;color:var(--paint)}
 .kv-data dd b{color:var(--or);font-weight:900}
-.kv-hatch{position:relative;border:10px solid var(--steel2);outline:1px solid var(--seam);box-shadow:inset 0 0 0 1px #000,0 30px 60px rgba(0,0,0,.45);aspect-ratio:4/5;background:#000}
+.kv-hatch{position:relative;border:10px solid var(--steel2);outline:1px solid var(--seam);box-shadow:inset 0 0 0 1px #000,0 30px 60px rgba(0,0,0,.45);aspect-ratio:4/5;max-height:calc(100vh - 200px);background:#000}
 .kv-hatch img{width:100%;height:100%;object-fit:cover;display:block}
 .kv-hatch:before{content:'';position:absolute;inset:-10px;pointer-events:none;background:radial-gradient(circle at 10px 10px,#5b6167 0 3px,#202326 3.5px 5px,transparent 5.5px) 0 0/100% 100% no-repeat,radial-gradient(circle at calc(100% - 10px) 10px,#5b6167 0 3px,#202326 3.5px 5px,transparent 5.5px),radial-gradient(circle at 10px calc(100% - 10px),#5b6167 0 3px,#202326 3.5px 5px,transparent 5.5px),radial-gradient(circle at calc(100% - 10px) calc(100% - 10px),#5b6167 0 3px,#202326 3.5px 5px,transparent 5.5px)}
-.kv-hatch figcaption{position:absolute;left:0;bottom:0;background:var(--steel);color:var(--dim);font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:8px 12px;text-transform:uppercase}
+.kv-hatch figcaption{position:absolute;left:0;bottom:0;background:var(--steel);color:var(--dim);font-family:var(--body);font-weight:600;font-size:12px;letter-spacing:.1em;padding:8px 12px;text-transform:uppercase}
 /* seam-crossing marking */
 .kv-cross{position:relative;height:0;overflow:visible;z-index:2;pointer-events:none}
-.kv-cross span{position:absolute;right:4vw;top:0;transform:translateY(-58%);font-family:var(--disp);font-weight:900;font-size:clamp(120px,19vw,340px);line-height:.8;color:transparent;-webkit-text-stroke:2px rgba(229,141,0,.9);letter-spacing:.02em}
+.kv-cross span{position:absolute;right:4vw;top:0;transform:translateY(-58%);font-family:var(--disp);font-weight:900;font-size:clamp(120px,19vw,340px);line-height:.8;color:rgba(229,141,0,.22);letter-spacing:.02em;filter:url(#kvspray)}
 /* catalog grid (marking plate) */
 .kv-cat-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:clamp(28px,3vw,48px)}
 .kv-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--ink);border:2px solid var(--ink)}
@@ -71,7 +69,7 @@ mask:repeating-linear-gradient(180deg,#000 0 calc(var(--lh)*.36),transparent cal
 .kv-cell .im{aspect-ratio:16/10;overflow:hidden;background:#cfccc4}
 .kv-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .kv-cell .bd{padding:14px 16px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
-.kv-cell .ty{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5a5e62}
+.kv-cell .ty{font-family:var(--body);font-size:14px;color:#4a4e52}
 .kv-cell h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(22px,1.5vw,28px);line-height:.95;letter-spacing:.02em;color:var(--ink)}
 .kv-cell h3 a:after{content:'';position:absolute;inset:0}
 .kv-cell:hover{background:#fff}.kv-cell:hover img{transform:scale(1.05)}
@@ -111,10 +109,10 @@ mask:repeating-linear-gradient(180deg,#000 0 calc(var(--lh)*.36),transparent cal
 /* clients */
 .kv-logos{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;background:var(--ink);border:2px solid var(--ink);margin-top:clamp(28px,3vw,48px)}
 .kv-logos div{background:#e2dfd8;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;padding:14%}
-.kv-logos img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(1) contrast(1.15) brightness(.9);mix-blend-mode:multiply}
+.kv-logos img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(1) contrast(1.3) brightness(1.18);mix-blend-mode:multiply}
 .kv-q{margin:clamp(48px,5vw,88px) 0 0;padding:0;border:0;max-width:58ch}
 .kv-q p{font-size:clamp(22px,1.7vw,32px);line-height:1.35;color:var(--ink);font-weight:500;margin:0 0 16px;text-wrap:pretty}
-.kv-q cite{font-style:normal;font-family:var(--mono);font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--inkdim)}
+.kv-q cite{font-style:normal;font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--inkdim)}
 /* media */
 .kv-vids{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px);margin-top:clamp(28px,3vw,48px)}
 .kv-yt{position:relative;aspect-ratio:16/9;background:#000 center/cover no-repeat;border:8px solid var(--steel2);outline:1px solid var(--seam);cursor:pointer;padding:0;width:100%;display:block}
@@ -135,7 +133,7 @@ mask:repeating-linear-gradient(180deg,#000 0 calc(var(--lh)*.36),transparent cal
 .kv-end .kv-w{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(32px,5vw,96px)}
 .kv-end .side{border-top:2px solid var(--ink);padding-top:22px}
 /* news (Divi blog) */
-.kv-news-sec{background:#d3d0c9!important;padding:0 0 clamp(72px,8vw,136px)!important}
+.kv-news-sec{background:#c2bfb8!important;background-image:url("NOISE")!important;padding:0 0 clamp(72px,8vw,136px)!important}
 .kv-news-sec .et_pb_row{width:min(1360px,92vw)!important;max-width:none!important;padding:0!important}
 .kv-news .et_pb_ajax_pagination_container{display:grid!important;grid-template-columns:repeat(3,1fr);gap:2px;background:#141618;border:2px solid #141618}
 .kv-news .et_pb_post{margin:0!important;padding:0 0 20px!important;border:0!important;background:#e2dfd8!important}
@@ -145,21 +143,21 @@ mask:repeating-linear-gradient(180deg,#000 0 calc(var(--lh)*.36),transparent cal
 .kv-news .entry-featured-image-url img{width:100%;height:100%;object-fit:cover}
 .kv-news .entry-title{font-family:'Sofia Sans Extra Condensed',sans-serif!important;font-weight:800!important;text-transform:uppercase;font-size:clamp(24px,1.7vw,30px)!important;line-height:.98!important;padding:0 18px 8px!important;letter-spacing:.01em}
 .kv-news .entry-title a{color:#141618!important}
-.kv-news .post-meta{padding:0 18px!important;font-family:'Martian Mono',monospace;font-size:12px!important;letter-spacing:.05em;text-transform:uppercase;color:#5a5e62!important}
+.kv-news .post-meta{padding:0 18px!important;font-family:'Onest',sans-serif;font-weight:600;font-size:12px!important;letter-spacing:.05em;text-transform:uppercase;color:#5a5e62!important}
 .kv-news .post-content{padding:8px 18px 0!important;font-family:'Onest',sans-serif;font-size:15px;color:#3e4246}
 .kv-news .more-link{display:none!important}
 /* contact */
-.kv-contact-sec{background:#1c1f22!important;padding:clamp(72px,8vw,136px) 0!important}
+.kv-contact-sec{background:#16181b!important;padding:clamp(72px,8vw,136px) 0!important}
 .kv-contact-sec .et_pb_row{width:min(1360px,92vw)!important;max-width:none!important;padding:0!important}
 .kv-contact-sec .et_pb_contact_form_container{background:#ecebe5;padding:clamp(20px,2.4vw,36px)!important;border:4px solid #E58D00}
 .kv-contact-sec input,.kv-contact-sec textarea{border:2px solid #141618!important;background:#fff!important;border-radius:0!important;color:#141618!important;font-family:'Onest',sans-serif!important;font-size:16px!important}
 .kv-contact-sec input:focus,.kv-contact-sec textarea:focus{border-color:#E58D00!important;outline:none}
-.et_pb_section.kv-contact-sec .et_pb_contact_form .et_pb_contact_submit{background:#E58D00!important;border:3px solid #E58D00!important;color:#141618!important;border-radius:0!important;font-family:'Sofia Sans Extra Condensed',sans-serif!important;font-weight:800!important;font-size:24px!important;letter-spacing:.04em!important;text-transform:uppercase!important;padding:8px 26px!important}
-.et_pb_section.kv-contact-sec .et_pb_contact_form .et_pb_contact_submit:hover{background:#ffa31a!important}
-.kv.kv-ci{background:transparent!important}
+body .et_pb_section.kv-contact-sec .et_pb_contact_form .et_pb_contact_submit.et_pb_button{background:#E58D00!important;border:3px solid #E58D00!important;color:#141618!important;border-radius:0!important;font-family:'Sofia Sans Extra Condensed',sans-serif!important;font-weight:800!important;font-size:24px!important;letter-spacing:.04em!important;text-transform:uppercase!important;padding:8px 26px!important}
+body .et_pb_section.kv-contact-sec .et_pb_contact_form .et_pb_contact_submit.et_pb_button:hover{background:#ffa31a!important}
+.kv-contact-sec .et_contact_bottom_container{float:none!important;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:flex-end;margin-top:8px}.kv-contact-sec .et_pb_contact_right{float:none!important;margin:0!important}.kv-contact-sec .et_pb_contact_captcha_question{color:#141618!important;font-family:'Onest',sans-serif;font-weight:600;font-size:18px!important}.kv-contact-sec .et_pb_contact_captcha{width:72px!important}.kv.kv-ci{background:transparent!important}
 .kv-ci .tels a{display:block;font-family:var(--disp);font-weight:900;font-size:clamp(40px,3.6vw,64px);line-height:1;color:var(--paint)!important;margin-bottom:6px}
 .kv-ci .tels a:hover{color:var(--or)!important}
-.kv-ci .nav{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:32px;padding-top:20px;border-top:1px solid #4a4f55;font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.kv-ci .nav{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:32px;padding-top:20px;border-top:1px solid #4a4f55;font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
 .kv-ci .nav a{color:var(--dim)!important}.kv-ci .nav a:hover{color:var(--paint)!important}
 /* empty paragraph Divi/wpautop can leave before the first section */
 .et_builder_inner_content>p:empty{display:none}
@@ -168,8 +166,9 @@ mask:repeating-linear-gradient(180deg,#000 0 calc(var(--lh)*.36),transparent cal
 .kv-js .kv-spray{clip-path:inset(0 100% 0 0);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
 .kv-js .kv-spray.in{clip-path:inset(0 0 0 0)}
 @media (prefers-reduced-motion:reduce){.kv-js .kv-spray{clip-path:none!important;transition:none}.kv-cell img,.kv-gal img{transition:none}}
+@media (min-width:981px){.kv-hero .kv-w{padding-top:calc(80px + clamp(20px,2vw,36px))}}
 @media (max-width:1100px){.kv-grid{grid-template-columns:repeat(3,1fr)}.kv-logos{grid-template-columns:repeat(4,1fr)}.kv-why{grid-template-columns:1fr 1fr}.kv-why div{padding:22px 22px 22px 0!important;border-right:0;border-bottom:1px solid #4a4f55}.kv-steps{grid-template-columns:1fr 1fr 1fr}}
-@media (max-width:860px){.kv-hero .kv-w{grid-template-columns:1fr;min-height:0}.kv-hatch{aspect-ratio:16/10;order:-1}.kv-split,.kv-svc,.kv-hist .kv-w,.kv-comp .kv-w,.kv-end .kv-w,.kv-cat-head{grid-template-columns:1fr}.kv-svc .ph{min-height:300px}.kv-steps{grid-template-columns:1fr;border-top:0}.kv-steps li{border-right:0;border-top:1px solid #4a4f55;display:grid;grid-template-columns:56px 1fr;padding:16px 0!important}.kv-steps li:before{grid-row:span 2;font-size:44px}.kv-gal{grid-template-columns:1fr 1fr}.kv-gal a:nth-child(n){grid-column:span 1;grid-row:span 1}.kv-gal a:nth-child(1){grid-column:span 2;grid-row:span 2}.kv-docs{grid-template-columns:repeat(3,1fr)}.kv-vids{grid-template-columns:1fr}.kv-news .et_pb_ajax_pagination_container{grid-template-columns:1fr 1fr}.kv-cross span{font-size:34vw}}
+@media (max-width:860px){.kv-hero .kv-w{grid-template-columns:1fr;min-height:0}.kv-hatch{aspect-ratio:2/1;max-height:none;border-width:6px}.kv-hero .kv-w{padding-bottom:16px}.kv-hero h1 .l1{white-space:normal}.kv-split,.kv-svc,.kv-hist .kv-w,.kv-comp .kv-w,.kv-end .kv-w,.kv-cat-head{grid-template-columns:1fr}.kv-svc .ph{min-height:300px}.kv-steps{grid-template-columns:1fr;border-top:0}.kv-steps li{border-right:0;border-top:1px solid #4a4f55;display:grid;grid-template-columns:56px 1fr;padding:16px 0!important}.kv-steps li:before{grid-row:span 2;font-size:44px}.kv-gal{grid-template-columns:1fr 1fr}.kv-gal a:nth-child(n){grid-column:span 1;grid-row:span 1}.kv-gal a:nth-child(1){grid-column:span 2;grid-row:span 2}.kv-docs{grid-template-columns:repeat(3,1fr)}.kv-vids{grid-template-columns:1fr}.kv-news .et_pb_ajax_pagination_container{grid-template-columns:1fr 1fr}.kv-cross span{font-size:34vw}}
 @media (max-width:560px){.kv-grid{grid-template-columns:1fr 1fr}.kv-logos{grid-template-columns:repeat(3,1fr)}.kv-why{grid-template-columns:1fr}.kv-docs{grid-template-columns:1fr 1fr}.kv-news .et_pb_ajax_pagination_container{grid-template-columns:1fr}.kv-b{width:100%;justify-content:center}.kv-cell h3{font-size:20px}.kv-cell .bd{padding:10px 12px 14px}}
 """.replace('GUARD', GUARD).replace('NOISE', NOISE)
 CSS = re.sub(r'/\*.*?\*/', '', CSS); CSS = re.sub(r'\s*\n\s*', '', CSS)
@@ -185,17 +184,17 @@ hero_img = img(HERO + '-768x512.webp', 'Автомобільні ваги СЦМ
                srcset=f'{HERO}-768x512.webp 768w, {HERO}-1024x683.webp 1024w, {HERO}.webp 1536w', sizes='(max-width:860px) 92vw, 40vw')
 
 P = U + '2024/01/'
-MODELS = [('Металева','https://scma-kvk.com.ua/titan-standard-line-ua/','ТИТАН STANDARD LINE',P+'Установка-в-сборном-жб-фундаменте-768x432.webp'),
- ('Металева','https://scma-kvk.com.ua/titan-power-line/','ТИТАН POWER LINE',P+'Установка-ВА453-в-фундамент-768x432.webp'),
- ('Металева','https://scma-kvk.com.ua/titan-best-line/','ТИТАН BEST LINE',P+'Установка-А18-С80-в-сборный-фундамент-768x432.webp'),
- ('Металева','https://scma-kvk.com.ua/titan-universal-line/','ТИТАН UNIVERSAL LINE',P+'Установка-желтых-в-литой-фундамет-ЭСТАКАДА-768x432.webp'),
- ('Металева','https://scma-kvk.com.ua/universal_line_plus/','ТИТАН UNIVERSAL LINE PLUS+',P+'Желтые-рифленка-—-копия-768x432.webp'),
- ('Залізобетонна','https://scma-kvk.com.ua/metal-concrete-line/','ТИТАН METAL CONCRETE LINE',P+'Установка-МБ18-в-фундамент-ЭСТАКАДА-768x432.webp'),
- ('Залізобетонна','https://scma-kvk.com.ua/metal-concrete-line-plus/','ТИТАН METAL CONCRETE LINE PLUS+',U+'2024/02/5-1-768x483.webp'),
- ('Вагонні','https://scma-kvk.com.ua/vagon-vesi-titan/','Вагонні ваги ТИТАН',U+'2024/12/Вагонні-Залазничні-ЖД-ваги-768x617.webp'),
- ('Конвеєрні','https://scma-kvk.com.ua/konveer-vesi-vkt/','Ваги конвеєрні типу ВКТ',U+'2022/01/vkt.webp'),
- ('Платформні','https://scma-kvk.com.ua/platform-ves/','Платформні ваги типу ВПТД',P+'Коллаж-платформ-768x432.webp')]
-cells = ''.join(f'<div class="kv-cell"><div class="im">{img(i, n, 768, 432)}</div><div class="bd"><span class="ty">{t}</span><h3><a href="{h}">{e(n)}</a></h3></div></div>' for t, h, n, i in MODELS)
+MODELS = [('Металева платформа','https://scma-kvk.com.ua/titan-standard-line-ua/','ТИТАН STANDARD LINE',P+'Установка-в-сборном-жб-фундаменте-768x432.webp'),
+ ('Металева платформа','https://scma-kvk.com.ua/titan-power-line/','ТИТАН POWER LINE',P+'Установка-ВА453-в-фундамент-768x432.webp'),
+ ('Металева платформа','https://scma-kvk.com.ua/titan-best-line/','ТИТАН BEST LINE',P+'Установка-А18-С80-в-сборный-фундамент-768x432.webp'),
+ ('Металева платформа','https://scma-kvk.com.ua/titan-universal-line/','ТИТАН UNIVERSAL LINE',P+'Установка-желтых-в-литой-фундамет-ЭСТАКАДА-768x432.webp'),
+ ('Металева платформа','https://scma-kvk.com.ua/universal_line_plus/','ТИТАН UNIVERSAL LINE PLUS+',P+'Желтые-рифленка-—-копия-768x432.webp'),
+ ('Залізобетонна платформа','https://scma-kvk.com.ua/metal-concrete-line/','ТИТАН METAL CONCRETE LINE',P+'Установка-МБ18-в-фундамент-ЭСТАКАДА-768x432.webp'),
+ ('Залізобетонна платформа','https://scma-kvk.com.ua/metal-concrete-line-plus/','ТИТАН METAL CONCRETE LINE PLUS+',U+'2024/02/5-1-768x483.webp'),
+ ('Для залізничних вагонів','https://scma-kvk.com.ua/vagon-vesi-titan/','Вагонні ваги ТИТАН',U+'2024/12/Вагонні-Залазничні-ЖД-ваги-768x617.webp'),
+ ('Для конвеєрних ліній','https://scma-kvk.com.ua/konveer-vesi-vkt/','Ваги конвеєрні типу ВКТ',U+'2022/01/vkt.webp'),
+ ('Платформні ваги','https://scma-kvk.com.ua/platform-ves/','Платформні ваги типу ВПТД',P+'Коллаж-платформ-768x432.webp')]
+cells = ''.join(f'<div class="kv-cell"><div class="im">{img(i, n, 768, 432)}</div><div class="bd"><h3><a href="{h}">{e(n)}</a></h3><span class="ty">{t}</span></div></div>' for t, h, n, i in MODELS)
 
 LOGOS = [('2023/12/Arcelor_Mittal.webp','ArcelorMittal'),('2023/12/Metinvest.webp','Метінвест'),('2023/12/ugok.webp','ЮГОК'),('2023/12/INGOK.webp','ІнГЗК'),
  ('2023/12/CGZK.webp','ЦГЗК'),('2023/12/zelezorudnie.webp','залізорудне підприємство'),('2023/12/DTEK.webp','ДТЕК'),('2023/12/imgonline-com-ua-Resize-ecI9uNAM1KrM5VG.webp','Kazakhmys'),
@@ -214,7 +213,7 @@ def yt(v, t, l): return f'<button type="button" class="kv-yt" data-yt="{v}" aria
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500&family=Onest:wght@400;500;600&family=Sofia+Sans+Extra+Condensed:wght@800;900&display=swap">')
-SPRAY = '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="kvspray"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="1.6"/></filter></svg>'
+SPRAY = '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="kvspray" x="-2%" y="-2%" width="104%" height="104%"><feGaussianBlur in="SourceGraphic" stdDeviation="1.1" result="b"/><feComponentTransfer in="b" result="h"><feFuncA type="linear" slope=".45"/></feComponentTransfer><feMerge><feMergeNode in="h"/><feMergeNode in="SourceGraphic"/></feMerge></filter></svg>'
 
 JS = r"""<script>(function(){document.documentElement.classList.add('kv-js');
 var red=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -226,7 +225,7 @@ document.querySelectorAll('.kv-yt').forEach(function(b){b.addEventListener('clic
 
 PART1 = f'''{FONTS}<style>{CSS}</style>{SPRAY}<div class="kv">
 <section class="kv-hero kv-steel"><div class="kv-w"><div>
-<h1 class="kv-st"><span class="kv-spray" style="display:block">Автомобільні ваги</span><span class="o kv-spray" style="--d:.35s">СЦМА-КВК</span></h1>
+<h1 class="kv-st"><span class="kv-spray l1">Автомобільні ваги</span><span class="o kv-spray" style="--d:.35s">СЦМА-КВК</span></h1>
 <p class="sub">Виробництво та монтаж платформ 6–22 м, 30–100 т по Україні. Гарантуємо точність і надійність кожних ваг, які ми виготовляємо: від фундаменту до перевірки.</p>
 <dl class="kv-data">
 <div><dt>Довжина платформ</dt><dd>6–22 м</dd></div>
@@ -234,7 +233,7 @@ PART1 = f'''{FONTS}<style>{CSS}</style>{SPRAY}<div class="kv">
 <div><dt>Монтаж по всій Україні</dt><dd>від 3 днів</dd></div>
 <div><dt>Держкомпенсація на ваги</dt><dd><b>−25%</b></dd></div>
 </dl>
-<div class="kv-acts"><a class="kv-b" href="tel:+380676326798">{PHONE}067 632-67-98</a><a class="kv-b ln" href="https://scma-kvk.com.ua/form/">Отримати консультацію</a></div>
+<div class="kv-acts"><a class="kv-b" href="tel:+380676326798">{PHONE}Подзвонити +38 (067) 632-67-98</a><a class="kv-b ln" href="https://scma-kvk.com.ua/form/">Отримати консультацію</a></div>
 </div>
 <figure class="kv-hatch" style="margin:0">{hero_img}<figcaption>Платформа ТИТАН на об’єкті</figcaption></figure>
 </div></section>
@@ -279,7 +278,7 @@ PART2 = f'''<div class="kv">
 <div><h2 class="kv-st"><span class="kv-spray">Історія та досягнення</span></h2>
 <p class="kv-lead">Вже понад 50 років наше підприємство розробляє та впроваджує складні автоматизовані системи управління для різних галузей промисловості.</p>
 <p>Ми реалізуємо проєкти «під ключ», забезпечуємо сервісне обслуговування та постачання запасних частин, щоб обладнання наших клієнтів працювало стабільно й ефективно. Наші розробки відповідають міжнародним стандартам.</p>
-<div class="kv-nums"><div><b>40+</b>інноваційних розробок з патентним захистом</div><div><b>26</b>виробів з відзнаками українських і міжнародних виставок</div></div>
+<dl class="kv-data" style="margin-bottom:28px"><div><dt>Інноваційних розробок з патентним захистом</dt><dd>40+</dd></div><div><dt>Виробів з відзнаками українських і міжнародних виставок</dt><dd>26</dd></div></dl>
 <a class="kv-b ln" href="https://scma-kvk.com.ua/about/">Детальніше про нас</a></div>
 </div></section>
 <div class="kv-guard" role="presentation"></div>
