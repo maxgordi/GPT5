@@ -27,7 +27,7 @@ font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.
 .kv-guard{height:22px;background:var(--ink) url("GUARD") repeat-x left center/120px 22px}
 /* stencil marking */
 .kv-st{font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:.92;filter:url(#kvspray)}
-.kv h2.kv-st{font-size:clamp(44px,5.4vw,96px);margin-bottom:.35em;max-width:16ch;text-wrap:balance}
+.kv h2.kv-st{font-size:clamp(44px,5.4vw,96px);margin-bottom:.35em;max-width:22ch;text-wrap:balance}
 .kv h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(24px,1.8vw,32px);letter-spacing:.02em;line-height:1}
 .kv-lead{font-size:clamp(18px,1.15vw,22px);max-width:56ch;color:var(--dim)}
 .kv-conc .kv-lead,.kv-orange .kv-lead{color:var(--inkdim)}
@@ -256,7 +256,6 @@ PART1 = f'''<script>document.documentElement.classList.add('kv-js')</script>{FON
 <figure class="kv-hatch" style="margin:0">{hero_img}<figcaption>Платформа ТИТАН на об’єкті</figcaption></figure>
 </div></section>
 <div class="kv-guard" role="presentation"></div>
-<div class="kv-cross" aria-hidden="true"><span>ТИТАН</span></div>
 <section class="kv-sec kv-conc" id="catalog"><div class="kv-w">
 <div class="kv-cat-head"><div><h2 class="kv-st">Вагове обладнання ТИТАН</h2><p class="kv-lead">Автомобільні ваги металеві та залізобетонні, вагонні, конвеєрні та платформні ваги власного виробництва.</p></div><a class="kv-b ln" href="https://scma-kvk.com.ua/equipment-ua/">Усе обладнання</a></div>
 <div class="kv-grid">{cells}</div>
