@@ -174,15 +174,15 @@ font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.
 .kv-js .kv-hero .kv-data div{opacity:0;transform:translateX(-10px);transition:opacity .28s ease-out,transform .28s cubic-bezier(.16,1,.3,1)}
 .kv-js .kv-hero.go .kv-data div{opacity:1;transform:none}
 .kv-js .kv-hero.go .kv-data div:nth-child(1){transition-delay:.85s}.kv-js .kv-hero.go .kv-data div:nth-child(2){transition-delay:.95s}.kv-js .kv-hero.go .kv-data div:nth-child(3){transition-delay:1.05s}.kv-js .kv-hero.go .kv-data div:nth-child(4){transition-delay:1.15s}
-.kv-js .kv-hero .kv-acts{opacity:0;transform:translateY(8px);transition:opacity .4s ease-out 1.3s,transform .5s cubic-bezier(.16,1,.3,1) 1.3s}
+.kv-js .kv-hero .kv-acts{opacity:0;transform:translateY(8px);transition:opacity .35s ease-out .9s,transform .45s cubic-bezier(.16,1,.3,1) .9s}
 .kv-js .kv-hero.go .kv-acts{opacity:1;transform:none}
 .kv-js .kv-steps li{opacity:0;transform:translateY(12px);transition:opacity .35s ease-out,transform .45s cubic-bezier(.16,1,.3,1)}
 .kv-js .kv-steps.in li{opacity:1;transform:none}
 .kv-js .kv-steps.in li:nth-child(2){transition-delay:.09s}.kv-js .kv-steps.in li:nth-child(3){transition-delay:.18s}.kv-js .kv-steps.in li:nth-child(4){transition-delay:.27s}.kv-js .kv-steps.in li:nth-child(5){transition-delay:.36s}
-.kv-js .kv-stamp{opacity:0;transform:scale(1.12) rotate(-2deg);filter:blur(6px)}
-.kv-js .kv-stamp.in{opacity:1;transform:none;filter:url(#kvspray);transition:opacity .18s ease-out,transform .42s cubic-bezier(.2,1.2,.4,1),filter .3s ease-out}
+.kv-js .kv-stamp{opacity:0;transform:scale(1.12) rotate(-2deg);filter:url(#kvspray) blur(6px)}
+.kv-js .kv-stamp.in{opacity:1;transform:none;filter:url(#kvspray) blur(0px);transition:opacity .18s ease-out,transform .42s cubic-bezier(.2,1.2,.4,1),filter .3s ease-out}
 .kv-b{transition:background .15s,color .15s,box-shadow .2s,transform .12s}.kv-b:active{transform:translateY(1px)}
-@media (prefers-reduced-motion:reduce){.kv-js .kv-hero .paint{-webkit-mask:none;mask:none}.kv-js .kv-hatch{clip-path:none}.kv-js .kv-hatch img,.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-steps li,.kv-js .kv-stamp{transform:none}.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-hero .sub,.kv-js .kv-steps li,.kv-js .kv-stamp{transition:opacity .3s ease-out;transition-delay:0s!important}.kv-js .kv-stamp.in{filter:url(#kvspray)}.kv-cell img,.kv-gal img{transition:none}}
+@media (prefers-reduced-motion:reduce){.kv-js .kv-hero .paint{-webkit-mask:none;mask:none}.kv-js .kv-hatch{clip-path:none}.kv-js .kv-hatch img,.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-steps li,.kv-js .kv-stamp{transform:none}.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-hero .sub,.kv-js .kv-steps li,.kv-js .kv-stamp,.kv-js .kv-stamp.in{transition:opacity .3s ease-out;transition-delay:0s!important}.kv-js .kv-stamp,.kv-js .kv-stamp.in{filter:url(#kvspray)}.kv-cell img,.kv-gal img{transition:none}}
 @media (min-width:981px){.kv-hero .kv-w{padding-top:calc(80px + clamp(20px,2vw,36px))}}
 @media (max-width:1100px){.kv-grid{grid-template-columns:repeat(3,1fr)}.kv-logos{grid-template-columns:repeat(4,1fr)}.kv-why{grid-template-columns:1fr 1fr}.kv-why div{padding:22px 22px 22px 0!important;border-right:0;border-bottom:1px solid #4a4f55}.kv-steps{grid-template-columns:1fr 1fr 1fr}}
 @media (max-width:860px){.kv-hero .kv-w{grid-template-columns:1fr;min-height:0}.kv-hatch{aspect-ratio:12/5;max-height:none;border-width:6px}.kv-hero .sub{margin-top:.5em}.kv-hero .kv-w{padding-bottom:16px}.kv-hero h1 .l1{white-space:normal}.kv-split,.kv-svc,.kv-hist .kv-w,.kv-comp .kv-w,.kv-end .kv-w,.kv-cat-head{grid-template-columns:1fr}.kv-svc .ph{min-height:300px}.kv-steps{grid-template-columns:1fr;border-top:0}.kv-steps li{border-right:0;border-top:1px solid #4a4f55;display:grid;grid-template-columns:56px 1fr;padding:16px 0!important}.kv-steps li:before{grid-row:span 2;font-size:44px}.kv-gal{grid-template-columns:1fr 1fr}.kv-gal a:nth-child(n){grid-column:span 1;grid-row:span 1}.kv-gal a:nth-child(1){grid-column:span 2;grid-row:span 2}.kv-docs{grid-template-columns:repeat(3,1fr)}.kv-vids{grid-template-columns:1fr}.kv-news .et_pb_ajax_pagination_container{grid-template-columns:1fr 1fr}.kv-cross span{font-size:34vw}}
@@ -240,7 +240,7 @@ else{var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.is
 document.querySelectorAll('.kv-yt').forEach(function(b){b.addEventListener('click',function(){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+b.getAttribute('data-yt')+'?autoplay=1&rel=0';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.title=b.getAttribute('aria-label');b.appendChild(f);},{once:true});});
 })();</script>"""
 
-PART1 = f'''{FONTS}<style>{CSS}</style>{SPRAY}<div class="kv">
+PART1 = f'''<script>document.documentElement.classList.add('kv-js')</script>{FONTS}<style>{CSS}</style>{SPRAY}<div class="kv">
 <section class="kv-hero kv-steel"><div class="kv-w"><div>
 <h1 class="kv-st"><span class="paint l1">Автомобільні ваги</span><span class="o paint" style="--d:.38s">СЦМА-КВК</span></h1>
 <p class="sub">Виробництво та монтаж платформ 6–22 м, 30–100 т по Україні. Гарантуємо точність і надійність кожних ваг, які ми виготовляємо: від фундаменту до перевірки.</p>
