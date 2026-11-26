@@ -13,7 +13,7 @@ Mode: Persuade. Audience: farmers/agro-holdings, mining & metallurgy, logistics 
 
 THESIS: The page is the painted flank of a steel weighbridge: capacity and facts stencilled onto graphite primer, the way every wagon, grain sack and platform in this trade is marked. It refuses the dark-photo hero, stats strip and equal card grid.
 
-OWN-WORLD: graphite primer steel #1c1f22 with plate seams and bolt heads, stencil white #ecebe5, guard orange #E58D00 (the wheel-guard paint, used as the row of trapezoid guards that seams every section), foundation concrete #c9c6bf for light sections. Condensed heavy marking face painted with a soft overspray edge (adaptation: no Cyrillic stencil face exists on the web and a uniform CSS bridge mask read as sliced type, so bridges are omitted; the marking is painted, not cut), Onest body, Martian Mono only for measurements.
+OWN-WORLD: graphite primer steel #1c1f22 with plate seams and bolt heads, stencil white #ecebe5, guard orange #E58D00 (the wheel-guard paint, used as the row of trapezoid guards that seams every section), foundation concrete #c9c6bf for light sections. Condensed heavy marking face, painted without stencil bridges (owner decision in conversation: legibility first, "главное, чтобы хорошо читался"), Onest body, Martian Mono only for measurements.
 
 STORY: In seconds the visitor reads what KVK builds (TITAN platforms 6–22 m, 30–100 t), that the plant makes and installs them itself from 3 days, and that the state pays 25%; then sees models, installs, clients and calls or sends a request.
 

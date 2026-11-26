@@ -92,7 +92,7 @@ font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.
 .kv-why p{color:var(--dim);margin:12px 0 0;font-size:16px}
 /* compensation */
 .kv-comp .kv-w{display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,5vw,96px);align-items:center}
-.kv-comp .big{font-size:clamp(150px,22vw,380px);color:var(--ink);line-height:.78;--lh:.78em}
+.kv-comp{overflow:hidden}.kv-comp .big{font-size:clamp(150px,22vw,380px);color:var(--ink);line-height:.78;--lh:.78em}
 .kv-comp h2.kv-st{color:var(--ink)}
 .kv-comp p{color:#2b2208;font-size:clamp(17px,1.1vw,21px);max-width:52ch}
 /* service */
@@ -161,11 +161,28 @@ font-family:var(--body);font-size:clamp(16px,.35vw + 14.6px,19px);line-height:1.
 .kv-ci .nav a{color:var(--dim)!important}.kv-ci .nav a:hover{color:var(--paint)!important}
 /* empty paragraph Divi/wpautop can leave before the first section */
 .et_builder_inner_content>p:empty{display:none}
-.kv-spray{display:block}
-/* the one authored moment: spray-on marking, print order */
-.kv-js .kv-spray{clip-path:inset(0 100% 0 0);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
-.kv-js .kv-spray.in{clip-path:inset(0 0 0 0)}
-@media (prefers-reduced-motion:reduce){.kv-js .kv-spray{clip-path:none!important;transition:none}.kv-cell img,.kv-gal img{transition:none}}
+/* motion: one focal sequence on the hero (paint sprayed through the marking, hatch opens, data rows stamped), two supporting moments (steps in order, -25% stamp) */
+.kv-hero .paint{display:block}
+.kv-js .kv-hero .paint{-webkit-mask-image:linear-gradient(90deg,#000 0 42%,transparent 58%);mask-image:linear-gradient(90deg,#000 0 42%,transparent 58%);-webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-position:100% 0;mask-position:100% 0;transition:-webkit-mask-position .95s cubic-bezier(.45,.05,.25,1) var(--d,0s),mask-position .95s cubic-bezier(.45,.05,.25,1) var(--d,0s)}
+.kv-js .kv-hero.go .paint{-webkit-mask-position:0 0;mask-position:0 0}
+.kv-js .kv-hatch{clip-path:inset(0 0 100% 0);transition:clip-path .8s cubic-bezier(.16,1,.3,1) .25s}
+.kv-js .kv-hero.go .kv-hatch{clip-path:inset(-20px -20px -20px -20px)}
+.kv-js .kv-hatch img{transform:scale(1.08);transition:transform 1.6s cubic-bezier(.16,1,.3,1) .25s}
+.kv-js .kv-hero.go .kv-hatch img{transform:none}
+.kv-js .kv-hero .sub{opacity:0;transition:opacity .5s ease-out .7s}
+.kv-js .kv-hero.go .sub{opacity:1}
+.kv-js .kv-hero .kv-data div{opacity:0;transform:translateX(-10px);transition:opacity .28s ease-out,transform .28s cubic-bezier(.16,1,.3,1)}
+.kv-js .kv-hero.go .kv-data div{opacity:1;transform:none}
+.kv-js .kv-hero.go .kv-data div:nth-child(1){transition-delay:.85s}.kv-js .kv-hero.go .kv-data div:nth-child(2){transition-delay:.95s}.kv-js .kv-hero.go .kv-data div:nth-child(3){transition-delay:1.05s}.kv-js .kv-hero.go .kv-data div:nth-child(4){transition-delay:1.15s}
+.kv-js .kv-hero .kv-acts{opacity:0;transform:translateY(8px);transition:opacity .4s ease-out 1.3s,transform .5s cubic-bezier(.16,1,.3,1) 1.3s}
+.kv-js .kv-hero.go .kv-acts{opacity:1;transform:none}
+.kv-js .kv-steps li{opacity:0;transform:translateY(12px);transition:opacity .35s ease-out,transform .45s cubic-bezier(.16,1,.3,1)}
+.kv-js .kv-steps.in li{opacity:1;transform:none}
+.kv-js .kv-steps.in li:nth-child(2){transition-delay:.09s}.kv-js .kv-steps.in li:nth-child(3){transition-delay:.18s}.kv-js .kv-steps.in li:nth-child(4){transition-delay:.27s}.kv-js .kv-steps.in li:nth-child(5){transition-delay:.36s}
+.kv-js .kv-stamp{opacity:0;transform:scale(1.12) rotate(-2deg);filter:blur(6px)}
+.kv-js .kv-stamp.in{opacity:1;transform:none;filter:url(#kvspray);transition:opacity .18s ease-out,transform .42s cubic-bezier(.2,1.2,.4,1),filter .3s ease-out}
+.kv-b{transition:background .15s,color .15s,box-shadow .2s,transform .12s}.kv-b:active{transform:translateY(1px)}
+@media (prefers-reduced-motion:reduce){.kv-js .kv-hero .paint{-webkit-mask:none;mask:none}.kv-js .kv-hatch{clip-path:none}.kv-js .kv-hatch img,.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-steps li,.kv-js .kv-stamp{transform:none}.kv-js .kv-hero .kv-data div,.kv-js .kv-hero .kv-acts,.kv-js .kv-hero .sub,.kv-js .kv-steps li,.kv-js .kv-stamp{transition:opacity .3s ease-out;transition-delay:0s!important}.kv-js .kv-stamp.in{filter:url(#kvspray)}.kv-cell img,.kv-gal img{transition:none}}
 @media (min-width:981px){.kv-hero .kv-w{padding-top:calc(80px + clamp(20px,2vw,36px))}}
 @media (max-width:1100px){.kv-grid{grid-template-columns:repeat(3,1fr)}.kv-logos{grid-template-columns:repeat(4,1fr)}.kv-why{grid-template-columns:1fr 1fr}.kv-why div{padding:22px 22px 22px 0!important;border-right:0;border-bottom:1px solid #4a4f55}.kv-steps{grid-template-columns:1fr 1fr 1fr}}
 @media (max-width:860px){.kv-hero .kv-w{grid-template-columns:1fr;min-height:0}.kv-hatch{aspect-ratio:12/5;max-height:none;border-width:6px}.kv-hero .sub{margin-top:.5em}.kv-hero .kv-w{padding-bottom:16px}.kv-hero h1 .l1{white-space:normal}.kv-split,.kv-svc,.kv-hist .kv-w,.kv-comp .kv-w,.kv-end .kv-w,.kv-cat-head{grid-template-columns:1fr}.kv-svc .ph{min-height:300px}.kv-steps{grid-template-columns:1fr;border-top:0}.kv-steps li{border-right:0;border-top:1px solid #4a4f55;display:grid;grid-template-columns:56px 1fr;padding:16px 0!important}.kv-steps li:before{grid-row:span 2;font-size:44px}.kv-gal{grid-template-columns:1fr 1fr}.kv-gal a:nth-child(n){grid-column:span 1;grid-row:span 1}.kv-gal a:nth-child(1){grid-column:span 2;grid-row:span 2}.kv-docs{grid-template-columns:repeat(3,1fr)}.kv-vids{grid-template-columns:1fr}.kv-news .et_pb_ajax_pagination_container{grid-template-columns:1fr 1fr}.kv-cross span{font-size:34vw}}
@@ -216,16 +233,16 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
 SPRAY = '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="kvspray" x="-2%" y="-2%" width="104%" height="104%"><feGaussianBlur in="SourceGraphic" stdDeviation="1.1" result="b"/><feComponentTransfer in="b" result="h"><feFuncA type="linear" slope=".45"/></feComponentTransfer><feMerge><feMergeNode in="h"/><feMergeNode in="SourceGraphic"/></feMerge></filter></svg>'
 
 JS = r"""<script>(function(){document.documentElement.classList.add('kv-js');
-var red=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var all=document.querySelectorAll('.kv-spray');
-if(red||!('IntersectionObserver' in window)){all.forEach(function(x){x.classList.add('in');});}
-else{var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{rootMargin:'0px 0px -10% 0px'});all.forEach(function(x){io.observe(x);});}
+var hero=document.querySelector('.kv-hero');if(hero){requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('go');});});}
+var els=document.querySelectorAll('.kv-steps,.kv-stamp');
+if(!('IntersectionObserver' in window)){els.forEach(function(x){x.classList.add('in');});}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{rootMargin:'0px 0px -15% 0px'});els.forEach(function(x){io.observe(x);});}
 document.querySelectorAll('.kv-yt').forEach(function(b){b.addEventListener('click',function(){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+b.getAttribute('data-yt')+'?autoplay=1&rel=0';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.title=b.getAttribute('aria-label');b.appendChild(f);},{once:true});});
 })();</script>"""
 
 PART1 = f'''{FONTS}<style>{CSS}</style>{SPRAY}<div class="kv">
 <section class="kv-hero kv-steel"><div class="kv-w"><div>
-<h1 class="kv-st"><span class="kv-spray l1">Автомобільні ваги</span><span class="o kv-spray" style="--d:.35s">СЦМА-КВК</span></h1>
+<h1 class="kv-st"><span class="paint l1">Автомобільні ваги</span><span class="o paint" style="--d:.38s">СЦМА-КВК</span></h1>
 <p class="sub">Виробництво та монтаж платформ 6–22 м, 30–100 т по Україні. Гарантуємо точність і надійність кожних ваг, які ми виготовляємо: від фундаменту до перевірки.</p>
 <dl class="kv-data">
 <div><dt>Довжина платформ</dt><dd>6–22 м</dd></div>
@@ -240,17 +257,17 @@ PART1 = f'''{FONTS}<style>{CSS}</style>{SPRAY}<div class="kv">
 <div class="kv-guard" role="presentation"></div>
 <div class="kv-cross" aria-hidden="true"><span>ТИТАН</span></div>
 <section class="kv-sec kv-conc" id="catalog"><div class="kv-w">
-<div class="kv-cat-head"><div><h2 class="kv-st"><span class="kv-spray">Вагове обладнання ТИТАН</span></h2><p class="kv-lead">Автомобільні ваги металеві та залізобетонні, вагонні, конвеєрні та платформні ваги власного виробництва.</p></div><a class="kv-b ln" href="https://scma-kvk.com.ua/equipment-ua/">Усе обладнання</a></div>
+<div class="kv-cat-head"><div><h2 class="kv-st">Вагове обладнання ТИТАН</h2><p class="kv-lead">Автомобільні ваги металеві та залізобетонні, вагонні, конвеєрні та платформні ваги власного виробництва.</p></div><a class="kv-b ln" href="https://scma-kvk.com.ua/equipment-ua/">Усе обладнання</a></div>
 <div class="kv-grid">{cells}</div>
 </div></section>
 <div class="kv-guard" role="presentation"></div>
 <section class="kv-sec kv-steel"><div class="kv-w">
-<div class="kv-split"><div><h2 class="kv-st"><span class="kv-spray">Ваги завжди в наявності</span></h2>
+<div class="kv-split"><div><h2 class="kv-st">Ваги завжди в наявності</h2>
 <p class="kv-lead">Наші ваги завжди є в наявності і готові до відправки. СЦМА-КВК виробляє автомобільні ваги з повним циклом: від проєктування до монтажу.</p>
 <p>Ми пропонуємо вагові системи для вантажних автомобілів 30–100 т, розроблені відповідно до сучасних стандартів точності та безпеки. Доставляємо ваги, встановлюємо та налаштовуємо обладнання безпосередньо на об’єкті. Наші спеціалісти швидко підберуть модель автомобільних ваг ТИТАН під особливості вашого підприємства.</p></div>
 <figure class="kv-photo" style="margin:0">{img(U+"2022/01/IMG_7140-1024x683.webp","Збірка автомобільних ваг СЦМА-КВК на об’єкті",1024,683)}</figure></div>
 <ol class="kv-steps"><li><b>Підбір моделі</b><span>Під завдання та особливості вашого підприємства</span></li><li><b>Проєктування</b><span>Кожен проєкт розробляємо під вашу компанію</span></li><li><b>Виробництво</b><span>Власний цех, якісна сталь, перевірені комплектуючі</span></li><li><b>Доставка і монтаж</b><span>Встановлюємо та налаштовуємо ваги на об’єкті</span></li><li><b>Перевірка і сервіс</b><span>Калібрування, діагностика та ремонт</span></li></ol>
-<h2 class="kv-st" style="margin-top:clamp(72px,7vw,120px)"><span class="kv-spray">Якість та точність</span></h2>
+<h2 class="kv-st" style="margin-top:clamp(72px,7vw,120px)">Якість та точність</h2>
 <p class="kv-lead">Якість та точність — наша спеціалізація.</p>
 <div class="kv-why">
 <div><h3>Професіоналізм</h3><p>Власне виробництво, кваліфіковані конструктори та штатні монтажні бригади: ви працюватимете тільки з професіоналами.</p></div>
@@ -259,23 +276,23 @@ PART1 = f'''{FONTS}<style>{CSS}</style>{SPRAY}<div class="kv">
 <div><h3>Індивідуальність</h3><p>Кожен проєкт розробляємо під потреби вашої компанії. Навіть для нестандартних завдань наші інженери знайдуть рішення.</p></div>
 </div></div></section>
 <div class="kv-guard" role="presentation"></div>
-<section class="kv-sec kv-orange kv-comp"><div class="kv-w"><div class="big kv-st" aria-hidden="true"><span class="kv-spray">−25%</span></div><div>
+<section class="kv-sec kv-orange kv-comp"><div class="kv-w"><div class="big kv-st kv-stamp" aria-hidden="true">−25%</div><div>
 <h2 class="kv-st">Держкомпенсація на ваги «ТИТАН»</h2>
 <p>SCMA-KVK є в наказі Міністерства економіки України про державну компенсацію як постачальник вагового обладнання для агропромислового комплексу. Частину вартості ваг нашого виробництва компенсує держава.</p>
 <div class="kv-acts"><a class="kv-b" href="{U}2025/06/НАКАЗ-2655-з-додатком-від-17.06.25.pdf">Відкрити наказ (PDF)</a><a class="kv-b ln" href="tel:+380676326798">Уточнити умови</a></div></div></div></section>
 <section class="kv-svc kv-steel"><div class="ph" role="img" aria-label="Оператор керує автомобільними вагами через сенсорний термінал" style="background-image:url({U}2022/01/IMG_7130-1024x683.webp)"></div><div class="tx">
-<h2 class="kv-st"><span class="kv-spray">Сервісне обслуговування автомобільних, вагонних та конвеєрних ваг</span></h2>
+<h2 class="kv-st">Сервісне обслуговування автомобільних, вагонних та конвеєрних ваг</h2>
 <p class="kv-lead">Калібрування, діагностика та ремонт ваг, монтажні та демонтажні роботи.</p>
 <div class="kv-acts"><a class="kv-b" href="https://scma-kvk.com.ua/service/">Замовити сервіс</a></div></div></section>
 <div class="kv-guard" role="presentation"></div>
-<section class="kv-sec kv-conc" style="padding-bottom:clamp(28px,3vw,48px)"><div class="kv-w" style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap"><h2 class="kv-st" style="margin:0"><span class="kv-spray">Новини компанії</span></h2><a class="kv-ul" href="https://scma-kvk.com.ua/news-ua/">Усі новини</a></div></section>
+<section class="kv-sec kv-conc" style="padding-bottom:clamp(28px,3vw,48px)"><div class="kv-w" style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap"><h2 class="kv-st" style="margin:0">Новини компанії</h2><a class="kv-ul" href="https://scma-kvk.com.ua/news-ua/">Усі новини</a></div></section>
 </div>'''
 
 PART2 = f'''<div class="kv">
 <div class="kv-guard" role="presentation"></div>
 <section class="kv-sec kv-steel kv-hist"><div class="kv-w">
-<div class="big kv-st" aria-hidden="true"><span class="kv-spray">50+</span></div>
-<div><h2 class="kv-st"><span class="kv-spray">Історія та досягнення</span></h2>
+<div class="big kv-st" aria-hidden="true">50+</div>
+<div><h2 class="kv-st">Історія та досягнення</h2>
 <p class="kv-lead">Вже понад 50 років наше підприємство розробляє та впроваджує складні автоматизовані системи управління для різних галузей промисловості.</p>
 <p>Ми реалізуємо проєкти «під ключ», забезпечуємо сервісне обслуговування та постачання запасних частин, щоб обладнання наших клієнтів працювало стабільно й ефективно. Наші розробки відповідають міжнародним стандартам.</p>
 <dl class="kv-data" style="margin-bottom:28px"><div><dt>Інноваційних розробок з патентним захистом</dt><dd>40+</dd></div><div><dt>Виробів з відзнаками українських і міжнародних виставок</dt><dd>26</dd></div></dl>
@@ -283,23 +300,23 @@ PART2 = f'''<div class="kv">
 </div></section>
 <div class="kv-guard" role="presentation"></div>
 <section class="kv-sec kv-conc"><div class="kv-w">
-<h2 class="kv-st"><span class="kv-spray">Наші клієнти</span></h2><p class="kv-lead">Гірничо-збагачувальні комбінати, металургійні, енергетичні та агропромислові підприємства.</p>
+<h2 class="kv-st">Наші клієнти</h2><p class="kv-lead">Гірничо-збагачувальні комбінати, металургійні, енергетичні та агропромислові підприємства.</p>
 <div class="kv-logos">{logos}</div>
 <blockquote class="kv-q"><p>«Від 2004 року ваги успішно експлуатуються без поломок чи збоїв у роботі. Обладнання відзначається простотою налаштування та зручністю в експлуатації. Персонал швидко навчається роботі з вагами й упевнено виконує їхнє налагодження, перевірку та технічне обслуговування.»</p><cite>Кузнєцов Є.Г., начальник ЦКБ ВАТ ЦГЗК</cite></blockquote>
 </div></section>
 <div class="kv-guard" role="presentation"></div>
 <section class="kv-sec kv-steel"><div class="kv-w">
-<h2 class="kv-st"><span class="kv-spray">Відео про компанію</span></h2>
+<h2 class="kv-st">Відео про компанію</h2>
 <div class="kv-vids">{yt("WJ23Ia5s5M8","Відео про компанію СЦМА-КВК","Про компанію")}{yt("whMI_U-VeCY","Відео про виробництво автомобільних ваг СЦМА-КВК","Виробництво")}</div>
-<h2 class="kv-st" style="margin-top:clamp(72px,7vw,120px)"><span class="kv-spray">Виробництво та об’єкти</span></h2>
+<h2 class="kv-st" style="margin-top:clamp(72px,7vw,120px)">Виробництво та об’єкти</h2>
 <div class="kv-gal">{gal}</div>
 </div></section>
 <div class="kv-guard" role="presentation"></div>
 <section class="kv-sec kv-conc"><div class="kv-w">
-<h2 class="kv-st"><span class="kv-spray">Дозвільна документація</span></h2><p class="kv-lead">Сертифікати на автомобільні та вагонні ваги, дозвільні документи підприємства.</p>
+<h2 class="kv-st">Дозвільна документація</h2><p class="kv-lead">Сертифікати на автомобільні та вагонні ваги, дозвільні документи підприємства.</p>
 <div class="kv-docs">{docs}</div></div></section>
 <section class="kv-sec kv-conc kv-end" style="padding-top:0"><div class="kv-w">
-<div><h2 class="kv-st"><span class="kv-spray">Зважений підхід гарантує успіх!</span></h2>
+<div><h2 class="kv-st">Зважений підхід гарантує успіх!</h2>
 <p>Шукаєте надійні ваги для свого бізнесу? Криворізька Вагова Компанія (SCMA-KVK) пропонує широкий вибір вагового обладнання: від рішень для фермерських господарств до комплексних систем для промислових підприємств.</p>
 <p>Ми виготовляємо автомобільні, платформні, залізничні та конвеєрні ваги з високою точністю, надійністю та довговічністю. Характеристики та моделі ваг є в нашому каталозі та на сайті.</p>
 <div class="kv-acts"><a class="kv-b" href="{U}2024/03/Каталог-SCMA-KVK.pdf?download=1">Завантажити каталог (PDF)</a><a class="kv-b ln" href="https://scma-kvk.com.ua/equipment-ua/">Ваги на сайті</a></div></div>
